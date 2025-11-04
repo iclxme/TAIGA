@@ -90,16 +90,16 @@ class ProductoDB(Base):
     __tablename__ = "productos"
     id = Column(Integer, primary_key=True, index=True)
     nombre = Column(String, index=True)
-    descripcion = Column(String, nullable=True)     # B-04
-    foto = Column(String, nullable=True)            # B-04
-    alergenos = Column(JSON, nullable=True)         # B-04
-    precio = Column(Float, nullable=True)           # B-05
-    tipo = Column(String, nullable=True)            # B-05
-    sabor = Column(String, nullable=True)           # B-05
-    tamano = Column(String, nullable=True)          # B-05
-    maxSabores = Column(Integer, default=1)         # B-10
+    descripcion = Column(String, nullable=True)
+    foto = Column(String, nullable=True)
+    alergenos = Column(JSON, nullable=True)
+    precio = Column(Float, nullable=True)
+    tipo = Column(String, nullable=True)
+    sabor = Column(String, nullable=True)
+    tamano = Column(String, nullable=True)
+    maxSabores = Column(Integer, default=1)
 
-    presentaciones = relationship("PresentacionDB", back_populates="producto", cascade="all, delete-orphan") # B-06
+    presentaciones = relationship("PresentacionDB", back_populates="producto", cascade="all, delete-orphan")
 
 class PresentacionDB(Base):
     __tablename__ = "presentaciones"
