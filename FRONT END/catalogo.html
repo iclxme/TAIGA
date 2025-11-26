@@ -1,0 +1,1465 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Catálogo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .navbar-brand {
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+            margin-right: 2rem;
+        }
+        
+        .navbar-nav .nav-link {
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 600;
+        }
+        
+        .btn-login {
+            background-color: transparent;
+            border: 2px solid white;
+            color: white;
+            border-radius: 30px;
+            padding: 8px 20px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+            margin-right: 10px;
+        }
+        
+        .btn-login:hover {
+            background-color: white;
+            color: #007bff;
+            text-decoration: none;
+        }
+        
+        .btn-register {
+            background-color: white;
+            border: 2px solid white;
+            color: black;
+            border-radius: 30px;
+            padding: 8px 20px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .btn-register:hover {
+            background-color: #f8f9fa;
+            border-color: #f8f9fa;
+            color: black;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+        }
+        
+        .btn-cart {
+            background-color: #FF6B6B;
+            border: 2px solid #FF6B6B;
+            color: white;
+            border-radius: 30px;
+            padding: 8px 20px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            text-decoration: none !important;
+        }
+        
+        .btn-cart:hover {
+            background-color: #e55a5a;
+            border-color: #e55a5a;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+            text-decoration: none;
+        }
+        
+        .section-title {
+            position: relative;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, #4A90E2, #FF6B6B);
+            border-radius: 2px;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .form-control {
+            border-radius: 10px;
+            padding: 12px 15px;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            border-color: #4A90E2;
+            box-shadow: 0 0 0 0.2rem rgba(74, 144, 226, 0.25);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #4A90E2, #6B48FF);
+            border: none;
+            border-radius: 30px;
+            padding: 12px 30px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
+        }
+        
+        .btn-outline-primary {
+            border: 2px solid #4A90E2;
+            color: #4A90E2;
+            border-radius: 30px;
+            padding: 8px 20px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline-primary:hover {
+            background: #4A90E2;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        /* Estilos mejorados para el botón Limpiar Filtros */
+        .btn-clear-filters {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            border: 2px solid #6c757d;
+            color: #6c757d;
+            border-radius: 30px;
+            padding: 8px 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .btn-clear-filters:hover {
+            background: #6c757d;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
+        }
+        
+        .clear-icon {
+            font-size: 14px;
+            font-weight: bold;
+            color: #6c757d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background-color: rgba(108, 117, 125, 0.1);
+            transition: all 0.3s ease;
+            line-height: 1;
+        }
+        
+        .btn-clear-filters:hover .clear-icon {
+            background-color: rgba(255, 255, 255, 0.3);
+            color: white;
+        }
+        
+        .btn-outline-secondary {
+            border: 2px solid #6c757d;
+            color: #6c757d;
+            border-radius: 30px;
+            padding: 8px 20px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline-secondary:hover {
+            background: #6c757d;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .flavor-badge {
+            cursor: pointer;
+            border-radius: 20px;
+            padding: 8px 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .flavor-badge.active {
+            background: linear-gradient(135deg, #4A90E2, #6B48FF) !important;
+            border: 2px solid #4A90E2;
+            transform: translateY(-2px);
+        }
+        
+        .product-image {
+            height: 180px;
+            width: 100%;
+            object-fit: cover;
+            display: block;
+            border-radius: 10px 10px 0 0;
+        }
+        
+        .custom-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            min-width: 300px;
+            background-color: #06D6A0;
+            color: white;
+            border-radius: 10px;
+            padding: 15px 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: slideInRight 0.5s ease-out;
+        }
+        
+        .filters-card {
+            position: sticky;
+            top: 100px;
+            z-index: 100;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+            border: none;
+            border-radius: 15px;
+            background: white;
+            transition: none !important;
+        }
+        
+        .filters-card:hover {
+            transform: none !important;
+        }
+        
+        .no-products-message {
+            text-align: center;
+            padding: 60px 20px;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin: 20px 0;
+        }
+        
+        .no-products-message i {
+            font-size: 4rem;
+            color: #6c757d;
+            margin-bottom: 20px;
+        }
+        
+        .no-products-message h4 {
+            color: #495057;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .no-products-message p {
+            color: #6c757d;
+            max-width: 500px;
+            margin: 0 auto 25px;
+        }
+
+        /* Estilos para el modal de personalización */
+        .customization-option {
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 18px 15px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .customization-option:hover {
+            border-color: #4A90E2;
+            background-color: #f8f9ff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(74, 144, 226, 0.15);
+        }
+        
+        .customization-option.selected {
+            border-color: #4A90E2;
+            background: linear-gradient(135deg, #e8f0fe, #f0f7ff);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(74, 144, 226, 0.2);
+        }
+        
+        .option-content {
+            flex: 1;
+        }
+        
+        .option-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #2c3e50;
+            font-size: 1rem;
+        }
+        
+        .option-subtitle {
+            color: #6c757d;
+            font-size: 0.85rem;
+            margin-bottom: 0;
+        }
+        
+        .option-price {
+            color: #4A90E2;
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-align: right;
+            min-width: 80px;
+        }
+        
+        .option-price.free {
+            color: #28a745;
+        }
+        
+        .topping-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid #f1f1f1;
+            transition: all 0.2s ease;
+        }
+        
+        .topping-item:hover {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 14px 12px;
+            margin: 0 -12px;
+        }
+        
+        .topping-item:last-child {
+            border-bottom: none;
+        }
+        
+        .topping-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .topping-name {
+            font-weight: 500;
+            color: #495057;
+        }
+        
+        .total-price-section {
+            background: linear-gradient(135deg, #f8f9ff, #e8f0fe);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 2px solid #e9ecef;
+        }
+        
+        .total-price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #4A90E2;
+        }
+        
+        .section-title-modal {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #e9ecef;
+        }
+        
+        .product-info-modal {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .modal-content {
+            border-radius: 18px;
+            border: none;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .modal-header {
+            border-bottom: 1px solid #e9ecef;
+            border-radius: 18px 18px 0 0;
+            padding: 25px 30px 20px;
+            background: linear-gradient(135deg, #4A90E2, #6B48FF);
+            color: white;
+        }
+        
+        .modal-header .btn-close {
+            filter: invert(1);
+        }
+        
+        .modal-body {
+            padding: 30px;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        
+        .modal-footer {
+            border-top: 1px solid #e9ecef;
+            border-radius: 0 0 18px 18px;
+            padding: 20px 30px;
+        }
+        
+        .customization-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .customization-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .form-check-input:checked {
+            background-color: #4A90E2;
+            border-color: #4A90E2;
+        }
+        
+        .form-check-input:focus {
+            border-color: #4A90E2;
+            box-shadow: 0 0 0 0.2rem rgba(74, 144, 226, 0.25);
+        }
+        
+        /* Estilo para el badge de producto popular */
+        .popular-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #FFC107;
+            color: #212529;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            z-index: 10;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .product-card {
+            position: relative;
+        }
+        
+        /* Estilo para el botón de búsqueda avanzada */
+        .btn-advanced-search {
+            background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+            border: none;
+            border-radius: 30px;
+            padding: 8px 20px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .btn-advanced-search:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+            color: white;
+        }
+        
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .user-menu {
+            position: relative;
+            display: inline-block;
+        }
+
+        .user-avatar-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            color: white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .user-avatar-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        .user-dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            min-width: 280px;
+            margin-top: 10px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .user-dropdown-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .user-dropdown-header {
+            padding: 20px;
+            background: linear-gradient(135deg, #4A90E2, #6B48FF);
+            color: white;
+            border-radius: 12px 12px 0 0;
+            text-align: center;
+        }
+
+        .user-dropdown-header h6 {
+            margin: 0;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .user-dropdown-header small {
+            opacity: 0.8;
+            display: block;
+            font-size: 0.85rem;
+            margin-top: 5px;
+        }
+
+        .user-dropdown-menu hr {
+            margin: 0;
+        }
+
+        .user-dropdown-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            color: #2c3e50;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .user-dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .user-dropdown-item:hover {
+            background-color: #f8f9fa;
+            padding-left: 25px;
+        }
+
+        .user-dropdown-item i {
+            width: 20px;
+            margin-right: 12px;
+            color: #4A90E2;
+        }
+
+        .user-dropdown-item.logout {
+            color: #FF6B6B;
+            border-radius: 0 0 12px 12px;
+        }
+
+        .user-dropdown-item.logout:hover {
+            background-color: #fff5f5;
+        }
+
+        .user-dropdown-item.logout i {
+            color: #FF6B6B;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Frío Natural</a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="catalogo.html">Catálogo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="filtros.html">Búsqueda Avanzada</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="disponibilidad.html">Disponibilidad</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="promociones.html">Promociones</a>
+                    </li>
+                </ul>
+                
+                <div class="d-flex align-items-center">
+                    <!-- Carrito -->
+                    <div class="position-relative me-3">
+                        <a href="editar_carrito.html" class="btn-cart position-relative">
+                            <i class="fas fa-shopping-cart"></i> Carrito
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning" id="cartBadge">0</span>
+                        </a>
+                    </div>
+                    
+                    <!-- Estado de autenticación -->
+                    <div id="authSection">
+                        <a href="inicio_sesion.html" class="btn-login">Iniciar Sesión</a>
+                        <a href="registro.html" class="btn-register">Registrarse</a>
+                    </div>
+                    <div id="userSection" class="d-none">
+                        <div class="user-menu">
+                            <button class="user-avatar-btn" id="userAvatarBtn" title="Menú de usuario">
+                                <i class="fas fa-user"></i>
+                            </button>
+                            <div class="user-dropdown-menu" id="userDropdownMenu">
+                                <div class="user-dropdown-header">
+                                    <h6 id="dropdownUserName">Usuario</h6>
+                                    <small id="dropdownUserEmail">email@example.com</small>
+                                </div>
+                                <a href="perfil.html" class="user-dropdown-item">
+                                    <i class="fas fa-user"></i>
+                                    <span>Mi Perfil</span>
+                                </a>
+                                <a href="admin.html" id="adminDropdownLink" class="user-dropdown-item d-none">
+                                    <i class="fas fa-cog"></i>
+                                    <span>Panel Admin</span>
+                                </a>
+                                <a href="#" class="user-dropdown-item logout" id="logoutBtn">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    <span>Cerrar Sesión</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <!-- Header -->
+        <div class="row mb-4">
+            <div class="col-12 text-center">
+                <h1 class="section-title text-primary">Nuestros Helados</h1>
+                <p class="lead text-muted">Descubre nuestra deliciosa variedad de sabores artesanales</p>
+            </div>
+        </div>
+
+        <!-- Barra de Búsqueda -->
+        <div class="row mb-4">
+            <div class="col-12 col-md-8 mx-auto">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="searchInput" placeholder="Buscar sabores...">
+                    <button class="btn btn-primary">
+                        <i class="fas fa-search me-2"></i>Buscar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filtros -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card shadow-sm filters-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Filtrar por:</h5>
+                        <div class="row g-3">
+                            <div class="col-12 col-md-4">
+                                <label class="form-label">Categoría</label>
+                                <select class="form-select" id="categoryFilter">
+                                    <option value="all">Todas las categorías</option>
+                                    <option value="cremoso">Cremosos</option>
+                                    <option value="frutal">Frutales</option>
+                                    <option value="chocolate">Chocolate</option>
+                                    <option value="especial">Especiales</option>
+                                </select>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <label class="form-label">Precio máximo</label>
+                                <select class="form-select" id="priceFilter">
+                                    <option value="9999">Cualquier precio</option>
+                                    <option value="5000">Hasta $5.000</option>
+                                    <option value="7000">Hasta $7.000</option>
+                                    <option value="10000">Hasta $10.000</option>
+                                </select>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <label class="form-label">Ordenar por</label>
+                                <select class="form-select" id="sortFilter">
+                                    <option value="name">Nombre A-Z</option>
+                                    <option value="price-asc">Precio: Menor a Mayor</option>
+                                    <option value="price-desc">Precio: Mayor a Menor</option>
+                                    <option value="popular">Más populares</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <!-- Filtros rápidos por sabor -->
+                        <div class="mt-3">
+                            <label class="form-label">Sabores populares:</label>
+                            <div class="d-flex flex-wrap gap-2" id="flavorFilters">
+                                <span class="badge bg-secondary flavor-badge active" data-flavor="all">Todos</span>
+                                <span class="badge bg-secondary flavor-badge" data-flavor="vainilla">Vainilla</span>
+                                <span class="badge bg-secondary flavor-badge" data-flavor="chocolate">Chocolate</span>
+                                <span class="badge bg-secondary flavor-badge" data-flavor="frutilla">Frutilla</span>
+                                <span class="badge bg-secondary flavor-badge" data-flavor="menta">Menta</span>
+                                <span class="badge bg-secondary flavor-badge" data-flavor="lucuma">Lúcuma</span>
+                            </div>
+                        </div>
+
+                        <!-- Botones de acción -->
+                        <div class="row mt-4">
+                            <div class="col-12 d-flex justify-content-center gap-2 flex-wrap">
+                                <button class="btn btn-primary" onclick="applyFilters()">
+                                    <i class="fas fa-filter me-2"></i>Aplicar Filtros
+                                </button>
+                                <button class="btn-clear-filters" onclick="clearFilters()">
+                                    <span class="clear-icon">×</span>
+                                    Limpiar Filtros
+                                </button>
+                                <!-- Botón de Búsqueda Avanzada -->
+                                <a href="filtros.html" class="btn-advanced-search">
+                                    <i class="fas fa-sliders-h me-2"></i>Búsqueda Avanzada
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Catálogo de Productos -->
+        <div class="row g-4" id="productsContainer">
+            <!-- Los productos se cargarán dinámicamente aquí -->
+        </div>
+
+        <!-- Paginación -->
+        <div class="row mt-5">
+            <div class="col-12 d-flex justify-content-center">
+                <nav>
+                    <ul class="pagination" id="paginationContainer">
+                        <!-- La paginación se generará dinámicamente -->
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Personalización -->
+    <div class="modal fade" id="customizationModal" tabindex="-1" aria-labelledby="customizationModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="customizationModalLabel">
+                        <i class="fas fa-ice-cream me-2"></i>Personaliza tu helado
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Información del producto -->
+                    <div class="product-info-modal">
+                        <div class="row align-items-center">
+                            <div class="col-md-3 text-center">
+                                <img src="" id="modalProductImage" alt="Helado" class="img-fluid rounded" style="max-height: 100px; width: auto;">
+                            </div>
+                            <div class="col-md-9">
+                                <h4 id="modalProductName" class="mb-1 text-dark"></h4>
+                                <p id="modalProductDescription" class="text-muted mb-2"></p>
+                                <div class="d-flex align-items-center">
+                                    <span class="h5 text-primary mb-0">Precio base: $<span id="modalBasePriceDisplay">0</span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-12">
+                            <!-- Selección de tamaño -->
+                            <div class="mb-4">
+                                <h6 class="section-title-modal">
+                                    <i class="fas fa-weight me-2"></i>Tamaño
+                                </h6>
+                                <div id="sizeOptions" class="customization-grid">
+                                    <!-- Las opciones de tamaño se cargarán dinámicamente -->
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <!-- Selección de salsas -->
+                                    <div class="mb-4">
+                                        <h6 class="section-title-modal">
+                                            <i class="fas fa-fill-drip me-2"></i>Salsas
+                                        </h6>
+                                        <div id="sauceOptions">
+                                            <!-- Las opciones de salsas se cargarán dinámicamente -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <!-- Selección de toppings -->
+                                    <div class="mb-4">
+                                        <h6 class="section-title-modal">
+                                            <i class="fas fa-star me-2"></i>Toppings
+                                        </h6>
+                                        <div id="toppingOptions">
+                                            <!-- Las opciones de toppings se cargarán dinámicamente -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Resumen del pedido -->
+                    <div class="total-price-section">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="mb-1">Total a pagar:</h6>
+                                <small class="text-muted">Incluye personalizaciones seleccionadas</small>
+                            </div>
+                            <div class="text-end">
+                                <span class="total-price">$<span id="modalTotalPrice">0</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times me-2"></i>Cancelar
+                    </button>
+                    <button type="button" class="btn btn-primary" id="addToCartFinal">
+                        <i class="fas fa-cart-plus me-2"></i>Agregar al Carrito
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="api.js"></script>
+    <script>
+        // Datos de productos
+        // Cargar productos desde admin localStorage
+        let products = [];
+
+        function loadProductsFromAdmin() {
+            const adminProducts = JSON.parse(localStorage.getItem('iceCreamTypes')) || [];
+            // Filtrar solo los activos
+            products = adminProducts.filter(p => p.activo === true).map((p, index) => ({
+                id: p.id || index + 1,
+                name: p.nombre,
+                category: "cremoso", // categoría default
+                price: p.precio || 5000,
+                flavor: p.nombre.toLowerCase(),
+                image: p.imagen || "",
+                popular: false,
+                description: p.descripcion || "Helado artesanal de Frío Natural"
+            }));
+        }
+
+        // Opciones de personalización - Cargar desde admin localStorage
+        let sizeOptions = [];
+        let sauceOptions = [];
+        let toppingOptions = [];
+
+        function loadCustomizationOptions() {
+            // Cargar del localStorage del admin
+            const adminSizes = JSON.parse(localStorage.getItem('sizes')) || [];
+            const adminSauces = JSON.parse(localStorage.getItem('sauces')) || [];
+            const adminToppings = JSON.parse(localStorage.getItem('toppings')) || [];
+
+            // Mapear tamaños con subtítulos
+            sizeOptions = adminSizes.filter(s => s.activo).map(s => ({
+                id: s.id,
+                name: s.nombre,
+                subtitle: s.descripcion || (s.precio === 0 ? 'Sin costo' : `+$${s.precio}`),
+                price: s.precio
+            }));
+
+            // Mapear salsas y toppings
+            sauceOptions = adminSauces.filter(s => s.activo).map(s => ({
+                id: s.id,
+                name: s.nombre,
+                price: s.precio
+            }));
+
+            toppingOptions = adminToppings.filter(t => t.activo).map(t => ({
+                id: t.id,
+                name: t.nombre,
+                price: t.precio
+            }));
+        }
+
+        let currentFilters = {
+            category: 'all',
+            price: 9999,
+            flavor: 'all',
+            search: '',
+            sort: 'name'
+        };
+
+        const productsPerPage = 6;
+        let currentPage = 1;
+        let filteredProducts = [];
+        let currentProduct = null;
+        let selectedSize = null;
+        let selectedSauces = [];
+        let selectedToppings = [];
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProductsFromAdmin(); // Cargar productos del admin
+            loadCustomizationOptions(); // Cargar opciones de personalización
+            loadProducts();
+            setupEventListeners();
+            updateCartBadge();
+            checkAuthStatus();
+        });
+
+        function setupEventListeners() {
+            // Filtros de sabor
+            document.querySelectorAll('.flavor-badge').forEach(badge => {
+                badge.addEventListener('click', function() {
+                    document.querySelectorAll('.flavor-badge').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentFilters.flavor = this.getAttribute('data-flavor');
+                    currentPage = 1;
+                    loadProducts();
+                });
+            });
+
+            // Búsqueda en tiempo real
+            document.getElementById('searchInput').addEventListener('input', function(e) {
+                currentFilters.search = this.value;
+                currentPage = 1;
+                loadProducts();
+            });
+
+            // Cambios en los selectores
+            document.getElementById('categoryFilter').addEventListener('change', function() {
+                currentFilters.category = this.value;
+                currentPage = 1;
+                loadProducts();
+            });
+
+            document.getElementById('priceFilter').addEventListener('change', function() {
+                currentFilters.price = parseInt(this.value);
+                currentPage = 1;
+                loadProducts();
+            });
+
+            document.getElementById('sortFilter').addEventListener('change', function() {
+                currentFilters.sort = this.value;
+                currentPage = 1;
+                loadProducts();
+            });
+
+            // Evento para agregar al carrito desde el modal
+            document.getElementById('addToCartFinal').addEventListener('click', function() {
+                addCustomizedToCart();
+            });
+        }
+
+        function loadProducts() {
+            const container = document.getElementById('productsContainer');
+            container.innerHTML = '';
+            
+            filteredProducts = products.filter(product => {
+                const categoryMatch = currentFilters.category === 'all' || product.category === currentFilters.category;
+                const priceMatch = product.price <= currentFilters.price;
+                const flavorMatch = currentFilters.flavor === 'all' || product.flavor === currentFilters.flavor;
+                const searchMatch = !currentFilters.search || 
+                    product.name.toLowerCase().includes(currentFilters.search.toLowerCase());
+                
+                return categoryMatch && priceMatch && flavorMatch && searchMatch;
+            });
+
+            // Ordenar productos
+            filteredProducts.sort((a, b) => {
+                switch(currentFilters.sort) {
+                    case 'price-asc':
+                        return a.price - b.price;
+                    case 'price-desc':
+                        return b.price - a.price;
+                    case 'popular':
+                        return (b.popular ? 1 : 0) - (a.popular ? 1 : 0);
+                    default:
+                        return a.name.localeCompare(b.name);
+                }
+            });
+
+            // Calcular paginación
+            const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+            const startIndex = (currentPage - 1) * productsPerPage;
+            const endIndex = startIndex + productsPerPage;
+            const currentProducts = filteredProducts.slice(startIndex, endIndex);
+            
+            if (currentProducts.length === 0) {
+                let message = '';
+                if (currentPage > 1) {
+                    message = `
+                        <div class="col-12">
+                            <div class="no-products-message">
+                                <i class="fas fa-ice-cream"></i>
+                                <h4>No hay helados en esta página</h4>
+                                <p>Parece que has llegado a una página sin productos. Intenta navegar a una página anterior.</p>
+                                <button class="btn btn-primary" onclick="changePage(1)">
+                                    <i class="fas fa-arrow-left me-2"></i>Volver a la primera página
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                } else if (currentFilters.search) {
+                    message = `
+                        <div class="col-12">
+                            <div class="no-products-message">
+                                <i class="fas fa-search"></i>
+                                <h4>No encontramos resultados</h4>
+                                <p>No hay productos que coincidan con tu búsqueda "${currentFilters.search}". Intenta con otros términos o revisa los filtros aplicados.</p>
+                                <button class="btn-clear-filters" onclick="clearFilters()">
+                                    <span class="clear-icon">×</span>
+                                    Limpiar Filtros
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    message = `
+                        <div class="col-12">
+                            <div class="no-products-message">
+                                <i class="fas fa-exclamation-circle"></i>
+                                <h4>No hay helados disponibles</h4>
+                                <p>Actualmente no tenemos productos que coincidan con los filtros seleccionados. Intenta ajustar los criterios de búsqueda.</p>
+                                <button class="btn-clear-filters" onclick="clearFilters()">
+                                    <span class="clear-icon">×</span>
+                                    Limpiar Filtros
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                }
+                container.innerHTML = message;
+            } else {
+                currentProducts.forEach(product => {
+                    const productCard = `
+                        <div class="col-md-6 col-lg-4 mb-4">
+                            <div class="card product-card shadow-sm h-100">
+                                ${product.popular ? '<div class="popular-badge"><i class="fas fa-star me-1"></i>Popular</div>' : ''}
+                                <img src="${product.image}" alt="${product.name}" class="product-image">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">${product.name}</h5>
+                                    <p class="card-text text-muted">${getCategoryName(product.category)}</p>
+                                    <p class="h4 text-primary">$${product.price.toLocaleString()}</p>
+                                    <button class="btn btn-outline-primary" onclick="openCustomizationModal(${product.id})">
+                                        Agregar al Carrito
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    container.innerHTML += productCard;
+                });
+            }
+
+            // Actualizar paginación
+            updatePagination(totalPages);
+        }
+
+        function openCustomizationModal(productId) {
+            // Reiniciar selecciones
+            selectedSize = null;
+            selectedSauces = [];
+            selectedToppings = [];
+            
+            // Encontrar el producto
+            currentProduct = products.find(p => p.id === productId);
+            
+            if (!currentProduct) return;
+            
+            // Actualizar información del producto en el modal
+            document.getElementById('modalProductName').textContent = currentProduct.name;
+            document.getElementById('modalProductDescription').textContent = currentProduct.description;
+            document.getElementById('modalProductImage').src = currentProduct.image;
+            document.getElementById('modalBasePriceDisplay').textContent = currentProduct.price.toLocaleString();
+            
+            // Cargar opciones de tamaño MEJORADAS
+            const sizeContainer = document.getElementById('sizeOptions');
+            sizeContainer.innerHTML = '';
+            sizeOptions.forEach(size => {
+                const priceDisplay = size.price > 0 ? `+$${size.price.toLocaleString()}` : 'Incluido';
+                const priceClass = size.price > 0 ? '' : 'free';
+                
+                const sizeElement = `
+                    <div class="customization-option" onclick="selectSize(${size.id})">
+                        <div class="option-content">
+                            <div class="option-title">${size.name}</div>
+                            <div class="option-subtitle">${size.subtitle}</div>
+                        </div>
+                        <div class="option-price ${priceClass}">${priceDisplay}</div>
+                    </div>
+                `;
+                sizeContainer.innerHTML += sizeElement;
+            });
+            
+            // Cargar opciones de salsas SIN iconos
+            const sauceContainer = document.getElementById('sauceOptions');
+            sauceContainer.innerHTML = '';
+            sauceOptions.forEach(sauce => {
+                const sauceElement = `
+                    <div class="topping-item">
+                        <div class="topping-info">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="sauce-${sauce.id}" onchange="toggleSauce(${sauce.id}, this.checked)">
+                                <label class="form-check-label topping-name" for="sauce-${sauce.id}">
+                                    ${sauce.name}
+                                </label>
+                            </div>
+                        </div>
+                        <span class="option-price">+$${sauce.price.toLocaleString()}</span>
+                    </div>
+                `;
+                sauceContainer.innerHTML += sauceElement;
+            });
+            
+            // Cargar opciones de toppings SIN iconos
+            const toppingContainer = document.getElementById('toppingOptions');
+            toppingContainer.innerHTML = '';
+            toppingOptions.forEach(topping => {
+                const toppingElement = `
+                    <div class="topping-item">
+                        <div class="topping-info">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="topping-${topping.id}" onchange="toggleTopping(${topping.id}, this.checked)">
+                                <label class="form-check-label topping-name" for="topping-${topping.id}">
+                                    ${topping.name}
+                                </label>
+                            </div>
+                        </div>
+                        <span class="option-price">+$${topping.price.toLocaleString()}</span>
+                    </div>
+                `;
+                toppingContainer.innerHTML += toppingElement;
+            });
+            
+            // Actualizar precio total
+            updateTotalPrice();
+            
+            // Mostrar modal
+            const modal = new bootstrap.Modal(document.getElementById('customizationModal'));
+            modal.show();
+        }
+
+        function selectSize(sizeId) {
+            selectedSize = sizeOptions.find(s => s.id === sizeId);
+            
+            // Actualizar UI
+            document.querySelectorAll('#sizeOptions .customization-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            event.target.closest('.customization-option').classList.add('selected');
+            
+            updateTotalPrice();
+        }
+
+        function toggleSauce(sauceId, isChecked) {
+            const sauce = sauceOptions.find(s => s.id === sauceId);
+            
+            if (isChecked) {
+                selectedSauces.push(sauce);
+            } else {
+                selectedSauces = selectedSauces.filter(s => s.id !== sauceId);
+            }
+            
+            updateTotalPrice();
+        }
+
+        function toggleTopping(toppingId, isChecked) {
+            const topping = toppingOptions.find(t => t.id === toppingId);
+            
+            if (isChecked) {
+                selectedToppings.push(topping);
+            } else {
+                selectedToppings = selectedToppings.filter(t => t.id !== toppingId);
+            }
+            
+            updateTotalPrice();
+        }
+
+        function updateTotalPrice() {
+            let total = currentProduct ? currentProduct.price : 0;
+            
+            if (selectedSize) {
+                total += selectedSize.price;
+            }
+            
+            selectedSauces.forEach(sauce => {
+                total += sauce.price;
+            });
+            
+            selectedToppings.forEach(topping => {
+                total += topping.price;
+            });
+            
+            document.getElementById('modalTotalPrice').textContent = total.toLocaleString();
+        }
+
+        function addCustomizedToCart() {
+            if (!currentProduct) return;
+            
+            if (!selectedSize) {
+                alert('Por favor selecciona un tamaño para tu helado.');
+                return;
+            }
+            
+            // Calcular precio total
+            let totalPrice = currentProduct.price;
+            totalPrice += selectedSize.price;
+            
+            selectedSauces.forEach(sauce => {
+                totalPrice += sauce.price;
+            });
+            
+            selectedToppings.forEach(topping => {
+                totalPrice += topping.price;
+            });
+            
+            // Crear descripción personalizada
+            let description = `${currentProduct.name} - ${selectedSize.name}`;
+            
+            if (selectedSauces.length > 0) {
+                description += ` con ${selectedSauces.map(s => s.name).join(', ')}`;
+            }
+            
+            if (selectedToppings.length > 0) {
+                description += ` y ${selectedToppings.map(t => t.name).join(', ')}`;
+            }
+            
+            // Agregar al carrito
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.push({
+                id: Date.now(), // ID único para este item personalizado
+                name: description,
+                price: totalPrice,
+                quantity: 1,
+                image: currentProduct.image, // Agregar imagen del producto
+                baseProduct: currentProduct.id,
+                size: selectedSize.id,
+                sauces: selectedSauces.map(s => s.id),
+                toppings: selectedToppings.map(t => t.id)
+            });
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartBadge();
+            
+            // Cerrar modal y mostrar notificación
+            const modal = bootstrap.Modal.getInstance(document.getElementById('customizationModal'));
+            modal.hide();
+            
+            showNotification(`¡${description} agregado al carrito!`);
+        }
+
+        function updatePagination(totalPages) {
+            const paginationContainer = document.getElementById('paginationContainer');
+            paginationContainer.innerHTML = '';
+
+            if (totalPages <= 1) return;
+
+            // Botón Anterior
+            const prevButton = `
+                <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+                    <a class="page-link" href="#" onclick="changePage(${currentPage - 1})">Anterior</a>
+                </li>
+            `;
+            paginationContainer.innerHTML += prevButton;
+
+            // Números de página
+            for (let i = 1; i <= totalPages; i++) {
+                const pageButton = `
+                    <li class="page-item ${currentPage === i ? 'active' : ''}">
+                        <a class="page-link" href="#" onclick="changePage(${i})">${i}</a>
+                    </li>
+                `;
+                paginationContainer.innerHTML += pageButton;
+            }
+
+            // Botón Siguiente
+            const nextButton = `
+                <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
+                    <a class="page-link" href="#" onclick="changePage(${currentPage + 1})">Siguiente</a>
+                </li>
+            `;
+            paginationContainer.innerHTML += nextButton;
+        }
+
+        function changePage(page) {
+            currentPage = page;
+            loadProducts();
+            // Scroll suave hacia arriba
+            window.scrollTo({ top: 600, behavior: 'smooth' });
+        }
+
+        function getCategoryName(category) {
+            const categories = {
+                'cremoso': 'Cremoso',
+                'frutal': 'Frutal',
+                'chocolate': 'Chocolate',
+                'especial': 'Especial'
+            };
+            return categories[category] || category;
+        }
+
+        function applyFilters() {
+            currentFilters.category = document.getElementById('categoryFilter').value;
+            currentFilters.price = parseInt(document.getElementById('priceFilter').value);
+            currentFilters.sort = document.getElementById('sortFilter').value;
+            currentPage = 1;
+            loadProducts();
+        }
+
+        function clearFilters() {
+            document.getElementById('categoryFilter').value = 'all';
+            document.getElementById('priceFilter').value = '9999';
+            document.getElementById('sortFilter').value = 'name';
+            document.getElementById('searchInput').value = '';
+            document.querySelectorAll('.flavor-badge').forEach(b => b.classList.remove('active'));
+            document.querySelector('.flavor-badge[data-flavor="all"]').classList.add('active');
+            
+            currentFilters = {
+                category: 'all',
+                price: 9999,
+                flavor: 'all',
+                search: '',
+                sort: 'name'
+            };
+            
+            currentPage = 1;
+            loadProducts();
+        }
+
+        function updateCartBadge() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartBadge').textContent = totalItems;
+        }
+
+        function checkAuthStatus() {
+            const currentUser = getCurrentUserData();
+            const authSection = document.getElementById('authSection');
+            const userSection = document.getElementById('userSection');
+            const userAvatarBtn = document.getElementById('userAvatarBtn');
+            const userDropdownMenu = document.getElementById('userDropdownMenu');
+            const adminDropdownLink = document.getElementById('adminDropdownLink');
+            const dropdownUserName = document.getElementById('dropdownUserName');
+            const dropdownUserEmail = document.getElementById('dropdownUserEmail');
+            
+            if (currentUser) {
+                authSection.classList.add('d-none');
+                userSection.classList.remove('d-none');
+                
+                // Actualizar información del dropdown
+                dropdownUserName.textContent = currentUser.full_name || currentUser.username;
+                dropdownUserEmail.textContent = currentUser.email;
+                
+                // Mostrar link de admin solo si es administrador
+                if (currentUser.role === 'admin') {
+                    adminDropdownLink.classList.remove('d-none');
+                }
+                
+                // Toggle del dropdown
+                userAvatarBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    userDropdownMenu.classList.toggle('show');
+                });
+                
+                // Cerrar dropdown al hacer clic fuera
+                document.addEventListener('click', function(e) {
+                    if (!e.target.closest('.user-menu')) {
+                        userDropdownMenu.classList.remove('show');
+                    }
+                });
+                
+                document.getElementById('logoutBtn').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    logout();
+                });
+            }
+        }
+        
+
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'custom-notification';
+            notification.innerHTML = `
+                <i class="fas fa-check-circle"></i>
+                <span>${message}</span>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

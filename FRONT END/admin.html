@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Panel Administrador</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .navbar-brand {
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+        }
+
+        .admin-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        .admin-header {
+            margin-bottom: 40px;
+        }
+
+        .admin-title {
+            font-weight: 700;
+            color: #2c3e50;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .nav-tabs {
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .nav-tabs .nav-link {
+            color: #6c757d;
+            border: none;
+            border-bottom: 3px solid transparent;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            padding: 12px 20px;
+        }
+
+        .nav-tabs .nav-link:hover {
+            color: #4A90E2;
+        }
+
+        .nav-tabs .nav-link.active {
+            color: #4A90E2;
+            background-color: transparent;
+            border-bottom-color: #4A90E2;
+        }
+
+        .tab-content {
+            margin-top: 30px;
+        }
+
+        .section-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .btn-add {
+            background: linear-gradient(135deg, #4A90E2, #6B48FF);
+            border: none;
+            color: white;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .btn-add:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
+            color: white;
+        }
+
+        .modal-header {
+            border-bottom: 1px solid #e9ecef;
+            background: linear-gradient(135deg, #4A90E2, #6B48FF);
+            color: white;
+        }
+
+        .modal-header .btn-close {
+            filter: brightness(0) invert(1);
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+
+        .form-control, .form-select {
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 10px 15px;
+            font-size: 0.95rem;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: #4A90E2;
+            box-shadow: 0 0 0 0.2rem rgba(74, 144, 226, 0.25);
+        }
+
+        .image-preview {
+            width: 200px;
+            height: 200px;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin-bottom: 15px;
+            border: 2px dashed #e9ecef;
+        }
+
+        .image-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .form-section {
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .form-section-title {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .item-card {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s ease;
+        }
+
+        .item-card:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .item-card-content {
+            flex: 1;
+        }
+
+        .item-card-title {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .item-card-price {
+            color: #4A90E2;
+            font-weight: 600;
+        }
+
+        .item-card-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-toggle {
+            padding: 5px 15px;
+            border-radius: 20px;
+            border: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+        }
+
+        .btn-toggle.active {
+            background-color: #06D6A0;
+            color: white;
+        }
+
+        .btn-toggle.inactive {
+            background-color: #ccc;
+            color: white;
+        }
+
+        .btn-edit {
+            background-color: #4A90E2;
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 6px;
+        }
+
+        .btn-edit:hover {
+            background-color: #3a7bc8;
+            color: white;
+        }
+
+        .btn-delete {
+            background-color: #FF6B6B;
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 6px;
+        }
+
+        .btn-delete:hover {
+            background-color: #e65555;
+            color: white;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #6c757d;
+        }
+
+        .empty-state-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
+
+        .user-menu {
+            position: relative;
+            display: inline-block;
+        }
+
+        .user-avatar-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            color: white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .user-avatar-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        .user-dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            min-width: 280px;
+            margin-top: 10px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .user-dropdown-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .user-dropdown-header {
+            padding: 20px;
+            background: linear-gradient(135deg, #4A90E2, #6B48FF);
+            color: white;
+            border-radius: 12px 12px 0 0;
+            text-align: center;
+        }
+
+        .user-dropdown-header h6 {
+            margin: 0;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .user-dropdown-header small {
+            opacity: 0.8;
+            display: block;
+            font-size: 0.85rem;
+            margin-top: 5px;
+        }
+
+        .user-dropdown-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            color: #2c3e50;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .user-dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .user-dropdown-item:hover {
+            background-color: #f8f9fa;
+            padding-left: 25px;
+        }
+
+        .user-dropdown-item i {
+            width: 20px;
+            margin-right: 12px;
+            color: #4A90E2;
+        }
+
+        .user-dropdown-item.logout {
+            color: #FF6B6B;
+            border-radius: 0 0 12px 12px;
+        }
+
+        .user-dropdown-item.logout:hover {
+            background-color: #fff5f5;
+        }
+
+        .user-dropdown-item.logout i {
+            color: #FF6B6B;
+        }
+
+        @media (max-width: 768px) {
+            .admin-container {
+                padding: 20px 15px;
+            }
+
+            .item-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .item-card-actions {
+                width: 100%;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Frío Natural</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="catalogo.html">Catálogo</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center gap-3">
+                    <div class="user-menu" id="userMenu">
+                        <button class="user-avatar-btn" id="userAvatarBtn" title="Mi cuenta">
+                            <i class="fas fa-user"></i>
+                        </button>
+                        <div class="user-dropdown-menu" id="userDropdownMenu">
+                            <div class="user-dropdown-header">
+                                <h6 id="userName">Bienvenido Admin</h6>
+                                <small id="userEmail"></small>
+                            </div>
+                            <a href="index.html" class="user-dropdown-item">
+                                <i class="fas fa-home"></i>
+                                <span>Ir a Inicio</span>
+                            </a>
+                            <a href="#" class="user-dropdown-item logout" id="logoutBtn">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Cerrar Sesión</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="admin-container">
+        <!-- Admin Header -->
+        <div class="admin-header">
+            <h1 class="admin-title">
+                <i class="fas fa-cog me-2 text-primary"></i>
+                Panel Administrador
+            </h1>
+            <p class="text-muted">Gestiona todos los aspectos del catálogo de helados</p>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="tipos-tab" data-bs-toggle="tab" data-bs-target="#tipos" type="button" role="tab">
+                    <i class="fas fa-ice-cream me-2"></i>Tipos de Helado
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="tamaños-tab" data-bs-toggle="tab" data-bs-target="#tamaños" type="button" role="tab">
+                    <i class="fas fa-ruler me-2"></i>Tamaños
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="toppings-tab" data-bs-toggle="tab" data-bs-target="#toppings" type="button" role="tab">
+                    <i class="fas fa-star me-2"></i>Toppings
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="salsas-tab" data-bs-toggle="tab" data-bs-target="#salsas" type="button" role="tab">
+                    <i class="fas fa-droplet me-2"></i>Salsas
+                </button>
+            </li>
+        </ul>
+
+        <!-- Tab Content -->
+        <div class="tab-content" id="tabContent">
+            <!-- TIPOS DE HELADO Tab -->
+            <div class="tab-pane fade show active" id="tipos" role="tabpanel">
+                <div class="section-card">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h2 class="section-title mb-0">Tipos de Helado</h2>
+                        <button class="btn btn-add" data-bs-toggle="modal" data-bs-target="#tipoModal" onclick="resetTipoForm()">
+                            <i class="fas fa-plus me-2"></i>Agregar Tipo
+                        </button>
+                    </div>
+                    <div id="tiposList"></div>
+                </div>
+            </div>
+
+            <!-- TAMAÑOS Tab -->
+            <div class="tab-pane fade" id="tamaños" role="tabpanel">
+                <div class="section-card">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h2 class="section-title mb-0">Tamaños Disponibles</h2>
+                        <button class="btn btn-add" data-bs-toggle="modal" data-bs-target="#tamañoModal" onclick="resetTamañoForm()">
+                            <i class="fas fa-plus me-2"></i>Agregar Tamaño
+                        </button>
+                    </div>
+                    <div id="tamañosList"></div>
+                </div>
+            </div>
+
+            <!-- TOPPINGS Tab -->
+            <div class="tab-pane fade" id="toppings" role="tabpanel">
+                <div class="section-card">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h2 class="section-title mb-0">Toppings</h2>
+                        <button class="btn btn-add" data-bs-toggle="modal" data-bs-target="#toppingModal" onclick="resetToppingForm()">
+                            <i class="fas fa-plus me-2"></i>Agregar Topping
+                        </button>
+                    </div>
+                    <div id="toppingsList"></div>
+                </div>
+            </div>
+
+            <!-- SALSAS Tab -->
+            <div class="tab-pane fade" id="salsas" role="tabpanel">
+                <div class="section-card">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h2 class="section-title mb-0">Salsas</h2>
+                        <button class="btn btn-add" data-bs-toggle="modal" data-bs-target="#salsaModal" onclick="resetSalsaForm()">
+                            <i class="fas fa-plus me-2"></i>Agregar Salsa
+                        </button>
+                    </div>
+                    <div id="salsasList"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODALES -->
+
+    <!-- Modal Tipos de Helado -->
+    <div class="modal fade" id="tipoModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="tipoModalTitle">Agregar Tipo de Helado</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="tipoForm">
+                        <div class="form-section">
+                            <div class="form-section-title">
+                                <i class="fas fa-image text-primary"></i>
+                                Imagen del Helado
+                            </div>
+                            <div class="image-preview" id="tipoImagePreview">
+                                <div class="image-placeholder">
+                                    <i class="fas fa-image fa-2x mb-2"></i>
+                                    <p>Sin imagen</p>
+                                </div>
+                            </div>
+                            <input type="file" class="form-control" id="tipoImage" accept="image/*" onchange="previewTipoImage(event)">
+                            <small class="text-muted">Carga una imagen del helado (JPG, PNG)</small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="tipoNombre" class="form-label">Nombre del Helado</label>
+                            <input type="text" class="form-control" id="tipoNombre" placeholder="Ej: Vainilla, Chocolate" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="tipoDescripcion" class="form-label">Descripción</label>
+                            <textarea class="form-control" id="tipoDescripcion" rows="3" placeholder="Describe el helado"></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="tipoPrecio" class="form-label">Precio Base ($)</label>
+                            <input type="number" class="form-control" id="tipoPrecio" placeholder="5000" required min="0">
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="tipoActivo" checked>
+                                <label class="form-check-label" for="tipoActivo">
+                                    Activo (visible en catálogo)
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="guardarTipo()">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Tamaños -->
+    <div class="modal fade" id="tamañoModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Agregar Tamaño</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="tamañoForm">
+                        <div class="mb-3">
+                            <label for="tamañoNombre" class="form-label">Nombre del Tamaño</label>
+                            <input type="text" class="form-control" id="tamañoNombre" placeholder="Ej: Pequeño, Mediano, Grande" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="tamañoPrecio" class="form-label">Precio Adicional ($)</label>
+                            <input type="number" class="form-control" id="tamañoPrecio" placeholder="1000" required min="0">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="tamañoDescripcion" class="form-label">Descripción</label>
+                            <input type="text" class="form-control" id="tamañoDescripcion" placeholder="Ej: Sin Costo, Costo Adicional, etc.">
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="tamañoActivo" checked>
+                                <label class="form-check-label" for="tamañoActivo">
+                                    Activo
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="guardarTamaño()">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Toppings -->
+    <div class="modal fade" id="toppingModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Agregar Topping</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="toppingForm">
+                        <div class="mb-3">
+                            <label for="toppingNombre" class="form-label">Nombre del Topping</label>
+                            <input type="text" class="form-control" id="toppingNombre" placeholder="Ej: Chispas de chocolate, Nueces" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="toppingPrecio" class="form-label">Precio ($)</label>
+                            <input type="number" class="form-control" id="toppingPrecio" placeholder="500" required min="0">
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="toppingActivo" checked>
+                                <label class="form-check-label" for="toppingActivo">
+                                    Activo
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="guardarTopping()">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Salsas -->
+    <div class="modal fade" id="salsaModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Agregar Salsa</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="salsaForm">
+                        <div class="mb-3">
+                            <label for="salsaNombre" class="form-label">Nombre de la Salsa</label>
+                            <input type="text" class="form-control" id="salsaNombre" placeholder="Ej: Chocolate, Caramelo, Fresa" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="salsaPrecio" class="form-label">Precio ($)</label>
+                            <input type="number" class="form-control" id="salsaPrecio" placeholder="500" required min="0">
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="salsaActivo" checked>
+                                <label class="form-check-label" for="salsaActivo">
+                                    Activo
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="guardarSalsa()">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="api.js"></script>
+    <script>
+        // Variables globales
+        let tipos = [];
+        let tamaños = [];
+        let toppings = [];
+        let salsas = [];
+        let editingId = null;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAdmin();
+            loadData();
+            setupLogout();
+            setupUserDropdown();
+        });
+
+        function setupUserDropdown() {
+            const userAvatarBtn = document.getElementById('userAvatarBtn');
+            const userDropdownMenu = document.getElementById('userDropdownMenu');
+            
+            if (userAvatarBtn) {
+                userAvatarBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    if (userDropdownMenu) {
+                        userDropdownMenu.classList.toggle('show');
+                    }
+                });
+            }
+            
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(event) {
+                if (userDropdownMenu && !userDropdownMenu.contains(event.target) && 
+                    (!userAvatarBtn || !userAvatarBtn.contains(event.target))) {
+                    userDropdownMenu.classList.remove('show');
+                }
+            });
+        }
+
+        function checkAdmin() {
+            const userData = getCurrentUserData();
+            if (!userData || userData.role !== 'admin') {
+                alert('Acceso denegado. Solo administradores pueden acceder aquí.');
+                window.location.href = 'index.html';
+            }
+        }
+
+        function loadData() {
+            tipos = JSON.parse(localStorage.getItem('iceCreamTypes')) || [];
+            tamaños = JSON.parse(localStorage.getItem('sizes')) || [];
+            toppings = JSON.parse(localStorage.getItem('toppings')) || [];
+            salsas = JSON.parse(localStorage.getItem('sauces')) || [];
+
+            // Auto-populate si está vacío
+            if (tipos.length === 0) {
+                populateDefaultData();
+            }
+
+            renderTipos();
+            renderTamaños();
+            renderToppings();
+            renderSalsas();
+        }
+
+        function populateDefaultData() {
+            // Tipos de helado - TODOS LOS 12 DE CATÁLOGO
+            tipos = [
+                {
+                    id: 1,
+                    nombre: 'Vainilla Premium',
+                    descripcion: 'Vainilla de la más alta calidad con un sabor suave y cremoso.',
+                    precio: 4990,
+                    imagen: 'HELADOS/vainilla-premium.png',
+                    activo: true
+                },
+                {
+                    id: 2,
+                    nombre: 'Chocolate Suizo',
+                    descripcion: 'Chocolate belga intenso con un toque de avellanas.',
+                    precio: 5990,
+                    imagen: 'HELADOS/chocolate-suizo.png',
+                    activo: true
+                },
+                {
+                    id: 3,
+                    nombre: 'Frutilla Natural',
+                    descripcion: 'Frutillas frescas en un helado cremoso y refrescante.',
+                    precio: 5490,
+                    imagen: 'HELADOS/frutilla-natural.png',
+                    activo: true
+                },
+                {
+                    id: 4,
+                    nombre: 'Menta con Chocolate',
+                    descripcion: 'Refrescante sabor a menta con trozos de chocolate.',
+                    precio: 5490,
+                    imagen: 'HELADOS/menta-chocolate.png',
+                    activo: true
+                },
+                {
+                    id: 5,
+                    nombre: 'Lúcuma Tradicional',
+                    descripcion: 'El auténtico sabor peruano de lúcuma en un helado cremoso.',
+                    precio: 5990,
+                    imagen: 'lucuma-tradicional.png',
+                    activo: true
+                },
+                {
+                    id: 6,
+                    nombre: 'Dulce de Leche',
+                    descripcion: 'El clásico sabor argentino en su versión más cremosa.',
+                    precio: 5290,
+                    imagen: 'dulce-leche.png',
+                    activo: true
+                },
+                {
+                    id: 7,
+                    nombre: 'Frambuesa Silvestre',
+                    descripcion: 'Frambuesas silvestres en un helado con un toque ácido.',
+                    precio: 5790,
+                    imagen: 'frambuesa-silvestre.png',
+                    activo: true
+                },
+                {
+                    id: 8,
+                    nombre: 'Cookies & Cream',
+                    descripcion: 'Helado de vainilla con trozos de galletas de chocolate.',
+                    precio: 6290,
+                    imagen: 'cookies-cream.png',
+                    activo: true
+                },
+                {
+                    id: 9,
+                    nombre: 'Mango Tropical',
+                    descripcion: 'Mango fresco con un toque tropical y refrescante.',
+                    precio: 5690,
+                    imagen: 'mango-tropical.png',
+                    activo: true
+                },
+                {
+                    id: 10,
+                    nombre: 'Café Espresso',
+                    descripcion: 'Intenso sabor a café espresso con un toque cremoso.',
+                    precio: 5890,
+                    imagen: 'cafe-espresso.png',
+                    activo: true
+                },
+                {
+                    id: 11,
+                    nombre: 'Pistacho Italiano',
+                    descripcion: 'Pistachos italianos tostados en un helado premium.',
+                    precio: 6490,
+                    imagen: 'pistacho-italiano.png',
+                    activo: true
+                },
+                {
+                    id: 12,
+                    nombre: 'Limón Sorbete',
+                    descripcion: 'Refrescante sorbete de limón natural, sin lácteos.',
+                    precio: 4790,
+                    imagen: 'limon-sorbete.png',
+                    activo: true
+                }
+            ];
+
+            // TODOS LOS 6 TAMAÑOS DE CATÁLOGO
+            tamaños = [
+                { id: 1, nombre: 'Porción Individual', precio: 0, descripcion: 'Sin Costo', activo: true },
+                { id: 2, nombre: 'Porción Doble', precio: 1500, descripcion: 'Costo Adicional', activo: true },
+                { id: 3, nombre: 'Porción Familiar', precio: 2500, descripcion: 'Costo Adicional', activo: true },
+                { id: 4, nombre: 'Medio Kilo', precio: 8900, descripcion: 'Tarrina Mediana', activo: true },
+                { id: 5, nombre: 'Un Kilo', precio: 15900, descripcion: 'Tarrina Grande', activo: true },
+                { id: 6, nombre: 'Dos Kilos', precio: 28900, descripcion: 'Tarrina Extra Grande', activo: true }
+            ];
+
+            // TODOS LOS 8 TOPPINGS DE CATÁLOGO
+            toppings = [
+                { id: 1, nombre: 'Granas de Chocolate', precio: 500, activo: true },
+                { id: 2, nombre: 'Nueces Crocantes', precio: 700, activo: true },
+                { id: 3, nombre: 'Frutillas Frescas', precio: 900, activo: true },
+                { id: 4, nombre: 'Coco Rallado', precio: 400, activo: true },
+                { id: 5, nombre: 'Chispas de Colores', precio: 300, activo: true },
+                { id: 6, nombre: 'Crema Chantilly', precio: 600, activo: true },
+                { id: 7, nombre: 'Galletas Trituradas', precio: 550, activo: true },
+                { id: 8, nombre: 'Sirope de Arce', precio: 750, activo: true }
+            ];
+
+            // TODAS LAS 6 SALSAS DE CATÁLOGO
+            salsas = [
+                { id: 1, nombre: 'Chocolate', precio: 800, activo: true },
+                { id: 2, nombre: 'Caramelo', precio: 800, activo: true },
+                { id: 3, nombre: 'Frutilla', precio: 800, activo: true },
+                { id: 4, nombre: 'Dulce de Leche', precio: 800, activo: true },
+                { id: 5, nombre: 'Chocolate Blanco', precio: 900, activo: true },
+                { id: 6, nombre: 'Frambuesa', precio: 800, activo: true }
+            ];
+
+            saveData();
+        }
+
+        function saveData() {
+            localStorage.setItem('iceCreamTypes', JSON.stringify(tipos));
+            localStorage.setItem('sizes', JSON.stringify(tamaños));
+            localStorage.setItem('toppings', JSON.stringify(toppings));
+            localStorage.setItem('sauces', JSON.stringify(salsas));
+        }
+
+        // TIPOS DE HELADO
+        function renderTipos() {
+            const container = document.getElementById('tiposList');
+            if (tipos.length === 0) {
+                container.innerHTML = '<div class="empty-state"><div class="empty-state-icon"><i class="fas fa-ice-cream"></i></div><p>No hay tipos de helado registrados</p></div>';
+                return;
+            }
+
+            container.innerHTML = tipos.map(tipo => `
+                <div class="item-card">
+                    <div style="display: flex; gap: 15px; flex: 1; align-items: center;">
+                        ${tipo.imagen ? `<img src="${tipo.imagen}" style="width: 80px; height: 80px; border-radius: 8px; object-fit: cover;">` : ''}
+                        <div class="item-card-content">
+                            <div class="item-card-title">${tipo.nombre}</div>
+                            <div style="font-size: 0.9rem; color: #6c757d; margin-bottom: 5px;">${tipo.descripcion || 'Sin descripción'}</div>
+                            <div class="item-card-price">$${tipo.precio.toLocaleString()}</div>
+                        </div>
+                    </div>
+                    <div class="item-card-actions">
+                        <button class="btn btn-toggle ${tipo.activo ? 'active' : 'inactive'}" onclick="toggleTipo(${tipo.id})">
+                            ${tipo.activo ? '<i class="fas fa-check me-1"></i>Activo' : '<i class="fas fa-ban me-1"></i>Inactivo'}
+                        </button>
+                        <button class="btn btn-edit" onclick="editTipo(${tipo.id})"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-delete" onclick="deleteTipo(${tipo.id})"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function editTipo(id) {
+            const tipo = tipos.find(t => t.id === id);
+            if (!tipo) return;
+
+            editingId = id;
+            document.getElementById('tipoModalTitle').textContent = 'Editar Tipo de Helado';
+            document.getElementById('tipoNombre').value = tipo.nombre;
+            document.getElementById('tipoDescripcion').value = tipo.descripcion || '';
+            document.getElementById('tipoPrecio').value = tipo.precio;
+            document.getElementById('tipoActivo').checked = tipo.activo;
+
+            if (tipo.imagen) {
+                document.getElementById('tipoImagePreview').innerHTML = `<img src="${tipo.imagen}">`;
+            }
+
+            const modal = new bootstrap.Modal(document.getElementById('tipoModal'));
+            modal.show();
+        }
+
+        function deleteTipo(id) {
+            if (confirm('¿Estás seguro de que deseas eliminar este tipo de helado?')) {
+                tipos = tipos.filter(t => t.id !== id);
+                saveData();
+                renderTipos();
+            }
+        }
+
+        function toggleTipo(id) {
+            const tipo = tipos.find(t => t.id === id);
+            if (tipo) {
+                tipo.activo = !tipo.activo;
+                saveData();
+                renderTipos();
+            }
+        }
+
+        function previewTipoImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('tipoImagePreview').innerHTML = `<img src="${e.target.result}">`;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function resetTipoForm() {
+            editingId = null;
+            document.getElementById('tipoModalTitle').textContent = 'Agregar Tipo de Helado';
+            document.getElementById('tipoForm').reset();
+            document.getElementById('tipoImagePreview').innerHTML = '<div class="image-placeholder"><i class="fas fa-image fa-2x mb-2"></i><p>Sin imagen</p></div>';
+        }
+
+        function guardarTipo() {
+            const nombre = document.getElementById('tipoNombre').value;
+            const descripcion = document.getElementById('tipoDescripcion').value;
+            const precio = parseFloat(document.getElementById('tipoPrecio').value);
+            const activo = document.getElementById('tipoActivo').checked;
+            const imageFile = document.getElementById('tipoImage').files[0];
+
+            if (!nombre || !precio) {
+                alert('Por favor completa los campos requeridos');
+                return;
+            }
+
+            let imagen = '';
+            if (imageFile) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imagen = e.target.result;
+                    guardarTipoData(nombre, descripcion, precio, activo, imagen);
+                };
+                reader.readAsDataURL(imageFile);
+            } else {
+                guardarTipoData(nombre, descripcion, precio, activo, imagen);
+            }
+        }
+
+        function generarImagenPlaceholder(nombre, color) {
+            const canvas = document.createElement('canvas');
+            canvas.width = 300;
+            canvas.height = 300;
+            const ctx = canvas.getContext('2d');
+
+            // Colores degradados para diferentes helados - Paleta expandida
+            const colores = {
+                'vainilla': { inicio: '#F3D5A5', fin: '#E6B357' },
+                'chocolate': { inicio: '#8B4513', fin: '#654321' },
+                'fresa': { inicio: '#FF6B9D', fin: '#E63384' },
+                'menta': { inicio: '#98FF98', fin: '#66FF66' },
+                'lúcuma': { inicio: '#FFB84D', fin: '#FF9500' },
+                'dulce de leche': { inicio: '#D4A574', fin: '#8B6F47' },
+                'frambuesa': { inicio: '#E75480', fin: '#C82333' },
+                'cookies': { inicio: '#D2691E', fin: '#8B4513' },
+                'mango': { inicio: '#FFB347', fin: '#FF8C00' },
+                'café': { inicio: '#6F4E37', fin: '#3C2415' },
+                'pistacho': { inicio: '#93C572', fin: '#6B8E23' },
+                'limón': { inicio: '#FFFF99', fin: '#FFED4E' },
+                // Colores adicionales
+                'avellana': { inicio: '#D4A574', fin: '#A0826D' },
+                'caramelo': { inicio: '#FFD700', fin: '#DAA520' },
+                'almendra': { inicio: '#E8DCC4', fin: '#C4B5A0' },
+                'vino': { inicio: '#722F37', fin: '#4A0E0E' },
+                'cereza': { inicio: '#DE3163', fin: '#C71585' },
+                'arándano': { inicio: '#4B0082', fin: '#2F004F' },
+                'kiwi': { inicio: '#A4DE6C', fin: '#76B82A' },
+                'naranja': { inicio: '#FF8C00', fin: '#FF6B35' },
+                'sandía': { inicio: '#FF1744', fin: '#D32F2F' },
+                'piña': { inicio: '#FFD700', fin: '#FFA500' },
+                'coco': { inicio: '#FFFACD', fin: '#F0E68C' },
+                'melocotón': { inicio: '#FFCCCB', fin: '#FFB6C1' },
+                'bubulujo': { inicio: '#FF69B4', fin: '#FF1493' },
+                'miel': { inicio: '#FFE4B5', fin: '#FFDAB9' },
+                'mora': { inicio: '#8B008B', fin: '#4B0082' },
+                'turrón': { inicio: '#CD7F32', fin: '#8B6F47' },
+                'brownie': { inicio: '#5D3A1A', fin: '#3D2817' },
+                'tiramisú': { inicio: '#A0522D', fin: '#5F4E37' },
+                'matcha': { inicio: '#7CB342', fin: '#558B2F' },
+                'hibisco': { inicio: '#E91E63', fin: '#C2185B' },
+                'lavanda': { inicio: '#B19CD9', fin: '#9370DB' },
+                'frutilla': { inicio: '#FF6B9D', fin: '#FF5A8A' },
+                'durazno': { inicio: '#FFDAB9', fin: '#FFB6C1' },
+                'queso': { inicio: '#FFFACD', fin: '#FFFAF0' },
+                'trufa': { inicio: '#3E2723', fin: '#1A0E0A' }
+            };
+
+            // Detectar color basado en nombre
+            let colorGradiente = colores['vainilla'];
+            for (let key in colores) {
+                if (nombre.toLowerCase().includes(key)) {
+                    colorGradiente = colores[key];
+                    break;
+                }
+            }
+
+            // Crear gradiente de fondo (desde el color más claro en la parte superior)
+            const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+            gradient.addColorStop(0, colorGradiente.inicio);
+            gradient.addColorStop(1, colorGradiente.fin);
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, 300, 300);
+
+            // Dibujar gran círculo de helado (bola) - similar a las imágenes de Fresa, Chocolate y Vainilla
+            const gradienteBola = ctx.createRadialGradient(150, 100, 10, 150, 100, 90);
+            gradienteBola.addColorStop(0, colorGradiente.inicio);
+            gradienteBola.addColorStop(1, colorGradiente.fin);
+            ctx.fillStyle = gradienteBola;
+            ctx.beginPath();
+            ctx.arc(150, 100, 90, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Agregar sombra sutil en la bola
+            ctx.fillStyle = 'rgba(0,0,0,0.15)';
+            ctx.beginPath();
+            ctx.arc(150, 100, 90, 0, Math.PI * 2);
+            ctx.fill();
+
+            return canvas.toDataURL('image/png');
+        }
+
+        function guardarTipoData(nombre, descripcion, precio, activo, imagen) {
+            // Si no hay imagen, generar una placeholder automáticamente
+            if (!imagen) {
+                imagen = generarImagenPlaceholder(nombre);
+            }
+
+            if (editingId) {
+                const tipo = tipos.find(t => t.id === editingId);
+                if (tipo) {
+                    tipo.nombre = nombre;
+                    tipo.descripcion = descripcion;
+                    tipo.precio = precio;
+                    tipo.activo = activo;
+                    if (imagen) tipo.imagen = imagen;
+                }
+            } else {
+                tipos.push({
+                    id: Math.max(...tipos.map(t => t.id), 0) + 1,
+                    nombre,
+                    descripcion,
+                    precio,
+                    activo,
+                    imagen
+                });
+            }
+
+            saveData();
+            renderTipos();
+            bootstrap.Modal.getInstance(document.getElementById('tipoModal')).hide();
+            editingId = null;
+        }
+
+        // TAMAÑOS
+        function renderTamaños() {
+            const container = document.getElementById('tamañosList');
+            if (tamaños.length === 0) {
+                container.innerHTML = '<div class="empty-state"><div class="empty-state-icon"><i class="fas fa-ruler"></i></div><p>No hay tamaños registrados</p></div>';
+                return;
+            }
+
+            container.innerHTML = tamaños.map(t => `
+                <div class="item-card">
+                    <div class="item-card-content">
+                        <div class="item-card-title">${t.nombre}</div>
+                        <div style="font-size: 0.9rem; color: #6c757d; margin-bottom: 5px;">${t.descripcion || 'Sin descripción'}</div>
+                        <div class="item-card-price">Precio adicional: $${t.precio.toLocaleString()}</div>
+                    </div>
+                    <div class="item-card-actions">
+                        <button class="btn btn-toggle ${t.activo ? 'active' : 'inactive'}" onclick="toggleTamaño(${t.id})">
+                            ${t.activo ? '<i class="fas fa-check me-1"></i>Activo' : '<i class="fas fa-ban me-1"></i>Inactivo'}
+                        </button>
+                        <button class="btn btn-edit" onclick="editTamaño(${t.id})"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-delete" onclick="deleteTamaño(${t.id})"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function editTamaño(id) {
+            const t = tamaños.find(x => x.id === id);
+            if (!t) return;
+            editingId = id;
+            document.getElementById('tamañoNombre').value = t.nombre;
+            document.getElementById('tamañoPrecio').value = t.precio;
+            document.getElementById('tamañoDescripcion').value = t.descripcion || '';
+            document.getElementById('tamañoActivo').checked = t.activo;
+            const modal = new bootstrap.Modal(document.getElementById('tamañoModal'));
+            modal.show();
+        }
+
+        function deleteTamaño(id) {
+            if (confirm('¿Deseas eliminar este tamaño?')) {
+                tamaños = tamaños.filter(t => t.id !== id);
+                saveData();
+                renderTamaños();
+            }
+        }
+
+        function toggleTamaño(id) {
+            const t = tamaños.find(x => x.id === id);
+            if (t) {
+                t.activo = !t.activo;
+                saveData();
+                renderTamaños();
+            }
+        }
+
+        function resetTamañoForm() {
+            editingId = null;
+            document.getElementById('tamañoForm').reset();
+        }
+
+        function guardarTamaño() {
+            const nombre = document.getElementById('tamañoNombre').value;
+            const precio = parseFloat(document.getElementById('tamañoPrecio').value);
+            const descripcion = document.getElementById('tamañoDescripcion').value;
+            const activo = document.getElementById('tamañoActivo').checked;
+
+            if (!nombre || precio === null || isNaN(precio)) {
+                alert('Por favor completa los campos requeridos');
+                return;
+            }
+
+            if (editingId) {
+                const t = tamaños.find(x => x.id === editingId);
+                if (t) {
+                    t.nombre = nombre;
+                    t.precio = precio;
+                    t.descripcion = descripcion;
+                    t.activo = activo;
+                }
+            } else {
+                tamaños.push({
+                    id: Math.max(...tamaños.map(t => t.id), 0) + 1,
+                    nombre,
+                    precio,
+                    descripcion,
+                    activo
+                });
+            }
+
+            saveData();
+            renderTamaños();
+            bootstrap.Modal.getInstance(document.getElementById('tamañoModal')).hide();
+            editingId = null;
+        }
+
+        // TOPPINGS
+        function renderToppings() {
+            const container = document.getElementById('toppingsList');
+            if (toppings.length === 0) {
+                container.innerHTML = '<div class="empty-state"><div class="empty-state-icon"><i class="fas fa-star"></i></div><p>No hay toppings registrados</p></div>';
+                return;
+            }
+
+            container.innerHTML = toppings.map(t => `
+                <div class="item-card">
+                    <div class="item-card-content">
+                        <div class="item-card-title">${t.nombre}</div>
+                        <div class="item-card-price">$${t.precio.toLocaleString()}</div>
+                    </div>
+                    <div class="item-card-actions">
+                        <button class="btn btn-toggle ${t.activo ? 'active' : 'inactive'}" onclick="toggleTopping(${t.id})">
+                            ${t.activo ? '<i class="fas fa-check me-1"></i>Activo' : '<i class="fas fa-ban me-1"></i>Inactivo'}
+                        </button>
+                        <button class="btn btn-edit" onclick="editTopping(${t.id})"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-delete" onclick="deleteTopping(${t.id})"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function editTopping(id) {
+            const t = toppings.find(x => x.id === id);
+            if (!t) return;
+            editingId = id;
+            document.getElementById('toppingNombre').value = t.nombre;
+            document.getElementById('toppingPrecio').value = t.precio;
+            document.getElementById('toppingActivo').checked = t.activo;
+            const modal = new bootstrap.Modal(document.getElementById('toppingModal'));
+            modal.show();
+        }
+
+        function deleteTopping(id) {
+            if (confirm('¿Deseas eliminar este topping?')) {
+                toppings = toppings.filter(t => t.id !== id);
+                saveData();
+                renderToppings();
+            }
+        }
+
+        function toggleTopping(id) {
+            const t = toppings.find(x => x.id === id);
+            if (t) {
+                t.activo = !t.activo;
+                saveData();
+                renderToppings();
+            }
+        }
+
+        function resetToppingForm() {
+            editingId = null;
+            document.getElementById('toppingForm').reset();
+        }
+
+        function guardarTopping() {
+            const nombre = document.getElementById('toppingNombre').value;
+            const precio = parseFloat(document.getElementById('toppingPrecio').value);
+            const activo = document.getElementById('toppingActivo').checked;
+
+            if (!nombre || !precio) {
+                alert('Por favor completa los campos requeridos');
+                return;
+            }
+
+            if (editingId) {
+                const t = toppings.find(x => x.id === editingId);
+                if (t) {
+                    t.nombre = nombre;
+                    t.precio = precio;
+                    t.activo = activo;
+                }
+            } else {
+                toppings.push({
+                    id: Math.max(...toppings.map(t => t.id), 0) + 1,
+                    nombre,
+                    precio,
+                    activo
+                });
+            }
+
+            saveData();
+            renderToppings();
+            bootstrap.Modal.getInstance(document.getElementById('toppingModal')).hide();
+            editingId = null;
+        }
+
+        // SALSAS
+        function renderSalsas() {
+            const container = document.getElementById('salsasList');
+            if (salsas.length === 0) {
+                container.innerHTML = '<div class="empty-state"><div class="empty-state-icon"><i class="fas fa-droplet"></i></div><p>No hay salsas registradas</p></div>';
+                return;
+            }
+
+            container.innerHTML = salsas.map(s => `
+                <div class="item-card">
+                    <div class="item-card-content">
+                        <div class="item-card-title">${s.nombre}</div>
+                        <div class="item-card-price">$${s.precio.toLocaleString()}</div>
+                    </div>
+                    <div class="item-card-actions">
+                        <button class="btn btn-toggle ${s.activo ? 'active' : 'inactive'}" onclick="toggleSalsa(${s.id})">
+                            ${s.activo ? '<i class="fas fa-check me-1"></i>Activo' : '<i class="fas fa-ban me-1"></i>Inactivo'}
+                        </button>
+                        <button class="btn btn-edit" onclick="editSalsa(${s.id})"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-delete" onclick="deleteSalsa(${s.id})"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function editSalsa(id) {
+            const s = salsas.find(x => x.id === id);
+            if (!s) return;
+            editingId = id;
+            document.getElementById('salsaNombre').value = s.nombre;
+            document.getElementById('salsaPrecio').value = s.precio;
+            document.getElementById('salsaActivo').checked = s.activo;
+            const modal = new bootstrap.Modal(document.getElementById('salsaModal'));
+            modal.show();
+        }
+
+        function deleteSalsa(id) {
+            if (confirm('¿Deseas eliminar esta salsa?')) {
+                salsas = salsas.filter(s => s.id !== id);
+                saveData();
+                renderSalsas();
+            }
+        }
+
+        function toggleSalsa(id) {
+            const s = salsas.find(x => x.id === id);
+            if (s) {
+                s.activo = !s.activo;
+                saveData();
+                renderSalsas();
+            }
+        }
+
+        function resetSalsaForm() {
+            editingId = null;
+            document.getElementById('salsaForm').reset();
+        }
+
+        function guardarSalsa() {
+            const nombre = document.getElementById('salsaNombre').value;
+            const precio = parseFloat(document.getElementById('salsaPrecio').value);
+            const activo = document.getElementById('salsaActivo').checked;
+
+            if (!nombre || !precio) {
+                alert('Por favor completa los campos requeridos');
+                return;
+            }
+
+            if (editingId) {
+                const s = salsas.find(x => x.id === editingId);
+                if (s) {
+                    s.nombre = nombre;
+                    s.precio = precio;
+                    s.activo = activo;
+                }
+            } else {
+                salsas.push({
+                    id: Math.max(...salsas.map(s => s.id), 0) + 1,
+                    nombre,
+                    precio,
+                    activo
+                });
+            }
+
+            saveData();
+            renderSalsas();
+            bootstrap.Modal.getInstance(document.getElementById('salsaModal')).hide();
+            editingId = null;
+        }
+
+        function setupLogout() {
+            document.getElementById('logoutBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                logout();
+            });
+        }
+    </script>
+</body>
+</html>

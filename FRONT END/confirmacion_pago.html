@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Confirmación de Pago - Frío Natural</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .navbar-brand {
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+            margin-right: 2rem;
+        }
+        
+        .navbar-nav .nav-link {
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 600;
+        }
+        
+        .btn-login {
+            background-color: transparent;
+            border: 2px solid white;
+            color: white;
+            border-radius: 30px;
+            padding: 8px 20px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+            margin-right: 10px;
+        }
+        
+        .btn-login:hover {
+            background-color: white;
+            color: #007bff;
+            text-decoration: none;
+        }
+        
+        .btn-register {
+            background-color: white;
+            border: 2px solid white;
+            color: black;
+            border-radius: 30px;
+            padding: 8px 20px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .btn-register:hover {
+            background-color: #f8f9fa;
+            border-color: #f8f9fa;
+            color: black;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-cart {
+            background-color: #FF6B6B;
+            border: 2px solid #FF6B6B;
+            color: white;
+            border-radius: 30px;
+            padding: 8px 20px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            text-decoration: none !important;
+        }
+        
+        .btn-cart:hover {
+            background-color: #e55a5a;
+            border-color: #e55a5a;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+            text-decoration: none;
+        }
+
+        .user-menu {
+            position: relative;
+            display: inline-block;
+        }
+
+        .user-avatar-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            color: white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .user-avatar-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        .user-dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            min-width: 280px;
+            margin-top: 10px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .user-dropdown-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .user-dropdown-header {
+            padding: 20px;
+            background: linear-gradient(135deg, #4A90E2, #6B48FF);
+            color: white;
+            border-radius: 12px 12px 0 0;
+            text-align: center;
+        }
+
+        .user-dropdown-header h6 {
+            margin: 0;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .user-dropdown-header small {
+            opacity: 0.8;
+            display: block;
+            font-size: 0.85rem;
+            margin-top: 5px;
+        }
+
+        .user-dropdown-menu hr {
+            margin: 0;
+        }
+
+        .user-dropdown-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            color: #2c3e50;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .user-dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .user-dropdown-item:hover {
+            background-color: #f8f9fa;
+            padding-left: 25px;
+        }
+
+        .user-dropdown-item i {
+            width: 20px;
+            margin-right: 12px;
+            color: #4A90E2;
+        }
+
+        .user-dropdown-item.logout {
+            color: #FF6B6B;
+            border-radius: 0 0 12px 12px;
+        }
+
+        .user-dropdown-item.logout:hover {
+            background-color: #fff5f5;
+        }
+
+        .user-dropdown-item.logout i {
+            color: #FF6B6B;
+        }
+
+        .custom-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            min-width: 300px;
+            background-color: #06D6A0;
+            color: white;
+            border-radius: 10px;
+            padding: 15px 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: slideInRight 0.5s ease-out;
+        }
+        
+        .custom-notification i {
+            font-size: 1.2rem;
+        }
+        
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .section-title {
+            position: relative;
+            margin-bottom: 3rem;
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .section-title h1 {
+            font-weight: 700;
+            color: #2c3e50;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, #4A90E2, #FF6B6B);
+            border-radius: 2px;
+        }
+
+        .success-card {
+            background: linear-gradient(135deg, rgba(6, 214, 160, 0.1), rgba(32, 201, 151, 0.1));
+            border: 2px solid #06D6A0;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(6, 214, 160, 0.2);
+        }
+
+        .success-icon {
+            font-size: 4rem;
+            color: #06D6A0;
+            margin-bottom: 15px;
+            animation: bounceSuccess 0.6s ease-out;
+        }
+
+        @keyframes bounceSuccess {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .success-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #06D6A0;
+            margin-bottom: 10px;
+        }
+
+        .success-message {
+            color: #2c3e50;
+            font-size: 1rem;
+            margin: 0;
+        }
+
+        .info-card {
+            background: white;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .info-card-header {
+            background: linear-gradient(135deg, #4A90E2, #6B48FF);
+            color: white;
+            padding: 20px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-card-body {
+            padding: 25px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 15px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #2c3e50;
+            min-width: 200px;
+        }
+
+        .info-value {
+            color: #6c757d;
+            text-align: right;
+            flex: 1;
+        }
+
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .step-box {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .step-box:hover {
+            border-color: #4A90E2;
+            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .step-icon {
+            font-size: 2.5rem;
+            color: #4A90E2;
+            margin-bottom: 10px;
+        }
+
+        .step-title {
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 0.95rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+
+        .btn-action {
+            padding: 12px 30px;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-primary-action {
+            background: linear-gradient(135deg, #4A90E2, #6B48FF);
+            color: white;
+        }
+
+        .btn-primary-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(74, 144, 226, 0.3);
+            color: white;
+            text-decoration: none;
+        }
+
+        .btn-secondary-action {
+            background: white;
+            color: #4A90E2;
+            border: 2px solid #4A90E2;
+        }
+
+        .btn-secondary-action:hover {
+            background: #4A90E2;
+            color: white;
+            text-decoration: none;
+        }
+
+        footer {
+            background: linear-gradient(135deg, #1e293b, #334155);
+            color: white;
+        }
+
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-right: 10px;
+        }
+
+        .social-icons a:hover {
+            background: #4A90E2;
+            transform: translateY(-3px);
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #4A90E2;
+            padding-left: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .section-title h1 {
+                font-size: 1.8rem;
+            }
+
+            .steps-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .info-row {
+                flex-direction: column;
+            }
+
+            .info-value {
+                text-align: left;
+                margin-top: 5px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .steps-container {
+                grid-template-columns: 1fr;
+            }
+
+            .success-icon {
+                font-size: 3rem;
+            }
+
+            .success-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Frío Natural</a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="catalogo.html">Catálogo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="disponibilidad.html">Disponibilidad</a>
+                    </li>
+                </ul>
+                
+                <div class="d-flex align-items-center">
+                    <div class="position-relative me-3">
+                        <a href="editar_carrito.html" class="btn-cart position-relative">
+                            <i class="fas fa-shopping-cart"></i> Carrito
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning" id="cartBadge">0</span>
+                        </a>
+                    </div>
+                    
+                    <div id="authSection">
+                        <a href="inicio_sesion.html" class="btn-login">Iniciar Sesión</a>
+                        <a href="registro.html" class="btn-register">Registrarse</a>
+                    </div>
+                    <div id="userSection" class="d-none">
+                        <div class="user-menu">
+                            <button class="user-avatar-btn" id="userAvatarBtn" title="Menú de usuario">
+                                <i class="fas fa-user"></i>
+                            </button>
+                            <div class="user-dropdown-menu" id="userDropdownMenu">
+                                <div class="user-dropdown-header">
+                                    <h6 id="dropdownUserName">Usuario</h6>
+                                    <small id="dropdownUserEmail">email@example.com</small>
+                                </div>
+                                <a href="perfil.html" class="user-dropdown-item">
+                                    <i class="fas fa-user"></i>
+                                    <span>Mi Perfil</span>
+                                </a>
+                                <a href="admin.html" id="adminDropdownLink" class="user-dropdown-item d-none">
+                                    <i class="fas fa-cog"></i>
+                                    <span>Panel Admin</span>
+                                </a>
+                                <a href="#" class="user-dropdown-item logout" id="logoutBtn">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    <span>Cerrar Sesión</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5 mb-5">
+        <!-- Section Title -->
+        <div class="section-title mb-5">
+            <h1 class="display-5">Confirmación de Pago</h1>
+            <p class="lead text-muted">Tu pedido ha sido procesado correctamente</p>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <!-- Success Message -->
+                <div class="success-card">
+                    <div class="success-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="success-title">¡Pago Exitoso!</div>
+                    <p class="success-message">Tu pedido ha sido confirmado. Te hemos enviado un correo de confirmación a tu dirección de email.</p>
+                </div>
+
+                <!-- Order Details -->
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <i class="fas fa-receipt"></i>
+                        <span>Detalles del Pedido</span>
+                    </div>
+                    <div class="info-card-body">
+                        <div class="info-row">
+                            <div class="info-label">Número de Pedido:</div>
+                            <div class="info-value" id="confirmationNumber">-</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">Fecha de Transacción:</div>
+                            <div class="info-value" id="transactionDate">-</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">Método de Pago:</div>
+                            <div class="info-value" id="paymentMethod">-</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">Total Pagado:</div>
+                            <div class="info-value" style="color: #06D6A0; font-weight: 700; font-size: 1.2rem;">
+                                $<span id="totalPaid">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Shipping Information -->
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <i class="fas fa-truck"></i>
+                        <span>Información de Envío</span>
+                    </div>
+                    <div class="info-card-body">
+                        <div class="info-row">
+                            <div class="info-label">Tipo de Envío:</div>
+                            <div class="info-value" id="shippingType">-</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">Dirección de Entrega:</div>
+                            <div class="info-value" id="deliveryAddress">-</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">Fecha Estimada de Entrega:</div>
+                            <div class="info-value" id="deliveryDate">-</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Next Steps -->
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <i class="fas fa-tasks"></i>
+                        <span>Próximos Pasos</span>
+                    </div>
+                    <div class="info-card-body">
+                        <div class="steps-container">
+                            <div class="step-box">
+                                <div class="step-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="step-title">Confirmar Email</div>
+                            </div>
+                            <div class="step-box">
+                                <div class="step-icon">
+                                    <i class="fas fa-hourglass-half"></i>
+                                </div>
+                                <div class="step-title">En Preparación</div>
+                            </div>
+                            <div class="step-box">
+                                <div class="step-icon">
+                                    <i class="fas fa-box"></i>
+                                </div>
+                                <div class="step-title">Empacar</div>
+                            </div>
+                            <div class="step-box">
+                                <div class="step-icon">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <div class="step-title">Entregado</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button class="btn-action btn-secondary-action" onclick="downloadPDF()">
+                        <i class="fas fa-download me-2"></i>Descargar Comprobante
+                    </button>
+                    <button class="btn-action btn-secondary-action" onclick="sendEmail()">
+                        <i class="fas fa-envelope me-2"></i>Enviar por Email
+                    </button>
+                    <a href="seguimiento.html" class="btn-action btn-primary-action">
+                        <i class="fas fa-tracking me-2"></i>Seguimiento del Pedido
+                    </a>
+                    <a href="index.html" class="btn-action btn-primary-action">
+                        <i class="fas fa-home me-2"></i>Volver al Inicio
+                    </a>
+                </div>
+
+                <!-- Support Message -->
+                <div class="text-center text-muted my-5" style="font-size: 0.95rem;">
+                    <p><i class="fas fa-info-circle me-2"></i>¿Tienes preguntas? Contáctanos a <strong>info@frio-natural.cl</strong> o llama al <strong>+56 9 1234 5678</strong></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-light py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5>Frío Natural</h5>
+                    <p>Los mejores helados artesanales desde 2010.</p>
+                    <div class="social-icons mt-3">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>Contacto</h5>
+                    <p>📍 Calle Principal 123, Ciudad</p>
+                    <p>📞 +56 9 1234 5678</p>
+                    <p>✉️ info@frio-natural.cl</p>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>Horarios</h5>
+                    <p>Lunes a Viernes: 10:00 - 20:00</p>
+                    <p>Sábados y Domingos: 11:00 - 22:00</p>
+                    <div class="footer-links mt-3">
+                        <a href="suscripcion.html" class="d-block text-light">Suscríbete a nuestras ofertas</a>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
+            <p class="text-center mb-0">&copy; 2025 Frío Natural. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="api.js"></script>
+    <script>
+        function generarNumeroPedido() {
+            const prefijos = ['FN', 'OR', 'PED', 'AC'];
+            const prefijo = prefijos[Math.floor(Math.random() * prefijos.length)];
+            const numero = Math.floor(100000 + Math.random() * 900000);
+            return `${prefijo}-${numero}`;
+        }
+
+        function generarFechaEntrega() {
+            const dias = Math.floor(2 + Math.random() * 5);
+            const fecha = new Date(Date.now() + dias * 24 * 60 * 60 * 1000);
+            return fecha.toLocaleDateString('es-ES', { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuthStatus();
+            updateCartBadge();
+
+            const userAvatarBtn = document.getElementById('userAvatarBtn');
+            const userDropdownMenu = document.getElementById('userDropdownMenu');
+            
+            if (userAvatarBtn && userDropdownMenu) {
+                userAvatarBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    userDropdownMenu.classList.toggle('show');
+                });
+                
+                document.addEventListener('click', function(e) {
+                    if (!e.target.closest('.user-menu')) {
+                        userDropdownMenu.classList.remove('show');
+                    }
+                });
+            }
+
+            // Cargar información del último pago
+            const lastPayment = JSON.parse(localStorage.getItem('lastPayment')) || {};
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+            document.getElementById('confirmationNumber').textContent = generarNumeroPedido();
+            document.getElementById('transactionDate').textContent = lastPayment.fecha || new Date().toLocaleString();
+            document.getElementById('paymentMethod').textContent = getPaymentMethodName(lastPayment.metodo) || '-';
+            document.getElementById('totalPaid').textContent = (lastPayment.monto || 0).toLocaleString();
+            
+            // Información de envío
+            const shippingType = lastPayment.envio === 'delivery' ? 'Delivery a Domicilio' : 'Retiro en Sucursal';
+            document.getElementById('shippingType').textContent = shippingType;
+            
+            if (lastPayment.direccion) {
+                const addr = lastPayment.direccion;
+                document.getElementById('deliveryAddress').textContent = 
+                    `${addr.calle} ${addr.numero}, ${addr.ciudad}, ${addr.region}`;
+            } else {
+                document.getElementById('deliveryAddress').textContent = 'Retiro en sucursal';
+            }
+            
+            document.getElementById('deliveryDate').textContent = generarFechaEntrega();
+        });
+
+        function getPaymentMethodName(method) {
+            const methods = {
+                'tarjeta': 'Tarjeta de Crédito/Débito',
+                'transferencia': 'Transferencia Bancaria',
+                'efectivo': 'Efectivo en Local'
+            };
+            return methods[method] || method;
+        }
+
+        function updateCartBadge() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const cartBadge = document.getElementById('cartBadge');
+            if (cartBadge) {
+                cartBadge.textContent = totalItems;
+            }
+        }
+
+        function checkAuthStatus() {
+            const currentUser = getCurrentUserData();
+            const authSection = document.getElementById('authSection');
+            const userSection = document.getElementById('userSection');
+            const adminDropdownLink = document.getElementById('adminDropdownLink');
+            const dropdownUserName = document.getElementById('dropdownUserName');
+            const dropdownUserEmail = document.getElementById('dropdownUserEmail');
+            
+            if (currentUser) {
+                authSection.classList.add('d-none');
+                userSection.classList.remove('d-none');
+                
+                dropdownUserName.textContent = currentUser.full_name || currentUser.username;
+                dropdownUserEmail.textContent = currentUser.email;
+                
+                if (currentUser.role === 'admin') {
+                    adminDropdownLink.classList.remove('d-none');
+                }
+                
+                document.getElementById('logoutBtn').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    logout();
+                });
+            }
+        }
+
+        function downloadPDF() {
+            showNotification('Descargando comprobante...', 'success');
+            setTimeout(() => {
+                showNotification('Comprobante descargado correctamente', 'success');
+            }, 1500);
+        }
+
+        function sendEmail() {
+            showNotification('Enviando comprobante por email...', 'success');
+            setTimeout(() => {
+                showNotification('Comprobante enviado a tu correo', 'success');
+            }, 1500);
+        }
+
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = 'custom-notification';
+            
+            let icon = 'fa-check-circle';
+            if (type === 'error') {
+                icon = 'fa-exclamation-circle';
+                notification.style.backgroundColor = '#FF6B6B';
+            }
+            
+            notification.innerHTML = `
+                <i class="fas ${icon}"></i>
+                <span>${message}</span>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

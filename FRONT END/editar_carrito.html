@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Carrito</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .navbar-brand {
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+            margin-right: 2rem;
+        }
+        
+        .navbar-nav .nav-link {
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 600;
+        }
+        
+        .btn-login {
+            background-color: transparent;
+            border: 2px solid white;
+            color: white;
+            border-radius: 30px;
+            padding: 8px 20px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+            margin-right: 10px;
+        }
+        
+        .btn-login:hover {
+            background-color: white;
+            color: #007bff;
+            text-decoration: none;
+        }
+        
+        .btn-register {
+            background-color: white;
+            border: 2px solid white;
+            color: black;
+            border-radius: 30px;
+            padding: 8px 20px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .btn-register:hover {
+            background-color: #f8f9fa;
+            border-color: #f8f9fa;
+            color: black;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+        }
+        
+        .btn-logout {
+            background-color: transparent;
+            border: 2px solid white;
+            color: white;
+            border-radius: 30px;
+            padding: 8px 20px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .btn-logout:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: white;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .btn-cart {
+            background-color: #FF6B6B;
+            border: 2px solid #FF6B6B;
+            color: white;
+            border-radius: 30px;
+            padding: 8px 20px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            text-decoration: none !important;
+        }
+        
+        .btn-cart:hover {
+            background-color: #e55a5a;
+            border-color: #e55a5a;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+            text-decoration: none;
+        }
+        
+        .custom-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            min-width: 300px;
+            background-color: #06D6A0;
+            color: white;
+            border-radius: 10px;
+            padding: 15px 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: slideInRight 0.5s ease-out;
+        }
+        
+        .custom-notification i {
+            font-size: 1.2rem;
+        }
+        
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .user-menu {
+            position: relative;
+            display: inline-block;
+        }
+
+        .user-avatar-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            color: white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .user-avatar-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        .user-dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            min-width: 280px;
+            margin-top: 10px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .user-dropdown-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .user-dropdown-header {
+            padding: 20px;
+            background: linear-gradient(135deg, #4A90E2, #6B48FF);
+            color: white;
+            border-radius: 12px 12px 0 0;
+            text-align: center;
+        }
+
+        .user-dropdown-header h6 {
+            margin: 0;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .user-dropdown-header small {
+            opacity: 0.8;
+            display: block;
+            font-size: 0.85rem;
+            margin-top: 5px;
+        }
+
+        .user-dropdown-menu hr {
+            margin: 0;
+        }
+
+        .user-dropdown-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            color: #2c3e50;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .user-dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .user-dropdown-item:hover {
+            background-color: #f8f9fa;
+            padding-left: 25px;
+        }
+
+        .user-dropdown-item i {
+            width: 20px;
+            margin-right: 12px;
+            color: #4A90E2;
+        }
+
+        .user-dropdown-item.logout {
+            color: #FF6B6B;
+            border-radius: 0 0 12px 12px;
+        }
+
+        .user-dropdown-item.logout:hover {
+            background-color: #fff5f5;
+        }
+
+        .user-dropdown-item.logout i {
+            color: #FF6B6B;
+        }
+        
+        .section-title {
+            position: relative;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, #4A90E2, #FF6B6B);
+            border-radius: 2px;
+        }
+        
+        /* ===== ESTILOS UNIFICADOS DE BOTONES (iguales al index) ===== */
+        
+        /* Botón Primario */
+        .btn-primary {
+            background: linear-gradient(135deg, #4A90E2, #6B48FF);
+            border: none;
+            border-radius: 30px;
+            padding: 12px 30px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
+        }
+        
+        /* Botón Outline Primary */
+        .btn-outline-primary {
+            border: 2px solid #4A90E2;
+            color: #4A90E2;
+            border-radius: 30px;
+            padding: 10px 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline-primary:hover {
+            background: #4A90E2;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        /* Botón Outline Secondary */
+        .btn-outline-secondary {
+            border: 2px solid #6c757d;
+            color: #6c757d;
+            border-radius: 30px;
+            padding: 10px 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline-secondary:hover {
+            background: #6c757d;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        /* Botón Success */
+        .btn-success {
+            background: linear-gradient(135deg, #06D6A0, #0CBAA6);
+            border: none;
+            border-radius: 30px;
+            padding: 12px 30px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(6, 214, 160, 0.3);
+        }
+        
+        /* Botón Warning */
+        .btn-warning {
+            background: linear-gradient(135deg, #FFD166, #FF9E6D);
+            border: none;
+            border-radius: 30px;
+            padding: 12px 30px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-warning:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 209, 102, 0.3);
+        }
+        
+        /* Botón Light */
+        .btn-light {
+            background: white;
+            border: 2px solid white;
+            color: #4A90E2;
+            border-radius: 30px;
+            padding: 12px 30px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-light:hover {
+            background: #f8f9fa;
+            border-color: #f8f9fa;
+            color: #4A90E2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+        }
+        
+        /* ===== ESTILOS MEJORADOS PARA EL CARRITO ===== */
+        
+        .cart-item {
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            background-color: white;
+        }
+        
+        .cart-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .cart-item-image {
+            height: 120px;
+            width: 100%;
+            object-fit: cover;
+            display: block;
+            border-radius: 10px;
+        }
+        
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .quantity-btn {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .quantity-display {
+            min-width: 40px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        .cart-summary-card {
+            background: linear-gradient(135deg, #f8f9ff, #e8f0fe);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 20px;
+            border: 2px solid #e9ecef;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        .total-price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #4A90E2;
+        }
+        
+        .coupon-card {
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border: none;
+            overflow: hidden;
+        }
+        
+        .coupon-card .card-body {
+            padding: 25px;
+        }
+        
+        .empty-cart {
+            text-align: center;
+            padding: 60px 20px;
+        }
+        
+        .empty-cart-icon {
+            font-size: 5rem;
+            color: #dee2e6;
+            margin-bottom: 20px;
+        }
+        
+        footer {
+            background-color: #343A40;
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+            margin-right: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            transform: translateY(-3px);
+            color: #FF6B6B;
+        }
+        
+        @media (max-width: 768px) {
+            .navbar-brand {
+                margin-right: 1rem;
+                font-size: 1.5rem;
+            }
+            
+            .btn-primary, .btn-success, .btn-warning, .btn-light {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .cart-item-image {
+                height: 100px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .navbar-brand {
+                font-size: 1.3rem;
+            }
+            
+            .btn-primary, .btn-success, .btn-warning, .btn-light {
+                padding: 8px 16px;
+                font-size: 0.85rem;
+            }
+            
+            .cart-item-image {
+                height: 80px;
+            }
+            
+            .quantity-btn {
+                width: 30px;
+                height: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Frío Natural</a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="catalogo.html">Catálogo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="disponibilidad.html">Disponibilidad</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="promociones.html">Promociones</a>
+                    </li>
+                </ul>
+                
+                <div class="d-flex align-items-center">
+                    <div class="position-relative me-3">
+                        <a href="editar_carrito.html" class="btn-cart position-relative">
+                            <i class="fas fa-shopping-cart"></i> Carrito
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning" id="cartBadge">0</span>
+                        </a>
+                    </div>
+                    
+                    <div id="authSection">
+                        <a href="inicio_sesion.html" class="btn-login">Iniciar Sesión</a>
+                        <a href="registro.html" class="btn-register">Registrarse</a>
+                    </div>
+                    <div id="userSection" class="d-none">
+                        <div class="user-menu">
+                            <button class="user-avatar-btn" id="userAvatarBtn" title="Menú de usuario">
+                                <i class="fas fa-user"></i>
+                            </button>
+                            <div class="user-dropdown-menu" id="userDropdownMenu">
+                                <div class="user-dropdown-header">
+                                    <h6 id="dropdownUserName">Usuario</h6>
+                                    <small id="dropdownUserEmail">email@example.com</small>
+                                </div>
+                                <a href="perfil.html" class="user-dropdown-item">
+                                    <i class="fas fa-user"></i>
+                                    <span>Mi Perfil</span>
+                                </a>
+                                <a href="admin.html" id="adminDropdownLink" class="user-dropdown-item d-none">
+                                    <i class="fas fa-cog"></i>
+                                    <span>Panel Admin</span>
+                                </a>
+                                <a href="#" class="user-dropdown-item logout" id="logoutBtn">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    <span>Cerrar Sesión</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenido Principal -->
+    <div class="container mt-5 mb-5">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-10">
+                <!-- Header -->
+                <div class="row mb-4">
+                    <div class="col-12 text-center">
+                        <h1 class="display-4 text-primary section-title">Tu Carrito de Compras</h1>
+                        <p class="lead text-muted">Revisa y edita tus productos antes de pagar</p>
+                    </div>
+                </div>
+
+                <!-- Mensaje Informativo -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="alert alert-info border-0 shadow-sm" style="border-radius: 15px;">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-info-circle me-3 fs-4"></i>
+                                <p class="mb-0">Puedes modificar las cantidades o eliminar productos de tu carrito</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contenido del Carrito -->
+                <div id="cartContent">
+                    <!-- Los productos del carrito se cargarán aquí dinámicamente -->
+                </div>
+
+                <!-- Cupón de Descuento -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="coupon-card">
+                            <div class="card-body">
+                                <h5 class="card-title mb-3 text-center">
+                                    <i class="fas fa-ticket-alt me-2"></i>¿Tienes un código de descuento?
+                                </h5>
+                                <div class="row">
+                                    <div class="col-md-8 mb-2">
+                                        <input type="text" class="form-control" id="couponCode" placeholder="Ej: VERANO20" style="border-radius: 30px;">
+                                    </div>
+                                    <div class="col-md-4 mb-2">
+                                        <button class="btn btn-primary w-100" onclick="applyCoupon()" style="border-radius: 30px;">
+                                            <i class="fas fa-check me-2"></i>Aplicar Cupón
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-12">
+                                        <div class="alert alert-success d-none" id="couponSuccess" style="border-radius: 10px;">
+                                            <strong><i class="fas fa-check-circle me-2"></i>¡Cupón aplicado!</strong> Descuento del 20% aplicado correctamente.
+                                        </div>
+                                        <div class="alert alert-danger d-none" id="couponError" style="border-radius: 10px;">
+                                            <strong><i class="fas fa-exclamation-circle me-2"></i>Cupón inválido</strong> Verifica el código e intenta nuevamente.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resumen del Pedido -->
+                <div class="row mb-4">
+                    <div class="col-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+                        <div class="cart-summary-card">
+                            <h5 class="mb-4 text-center">Resumen del Pedido</h5>
+                            <div class="d-flex justify-content-between mb-3">
+                                <span class="text-muted">Subtotal:</span>
+                                <span class="fw-bold">$<span id="subtotal">0</span></span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-3">
+                                <span class="text-muted">Descuento:</span>
+                                <span class="fw-bold text-success">-$<span id="discount">0</span></span>
+                            </div>
+                            <hr>
+                            <div class="d-flex justify-content-between fw-bold fs-5">
+                                <span class="text-muted">Total:</span>
+                                <span class="text-primary">$<span id="total">0</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Botones de Acción -->
+                <div class="row mt-4">
+                    <div class="col-12 text-center d-flex flex-wrap justify-content-center gap-3">
+                        <a href="catalogo.html" class="btn btn-outline-secondary">
+                            <i class="fas fa-arrow-left me-2"></i>Seguir Comprando
+                        </a>
+                        <button class="btn btn-primary" onclick="proceedToCheckout()">
+                            <i class="fas fa-credit-card me-2"></i>Proceder al Pago
+                        </button>
+                        <button class="btn btn-outline-danger" onclick="clearCart()">
+                            <i class="fas fa-trash me-2"></i>Vaciar Carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-light py-5 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5>Frío Natural</h5>
+                    <p>Los mejores helados artesanales desde 2010.</p>
+                    <div class="social-icons mt-3">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>Contacto</h5>
+                    <p>📍 Calle Principal 123, Ciudad</p>
+                    <p>📞 +56 9 1234 5678</p>
+                    <p>✉️ info@frio-natural.cl</p>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>Horarios</h5>
+                    <p>Lunes a Viernes: 10:00 - 20:00</p>
+                    <p>Sábados y Domingos: 11:00 - 22:00</p>
+                    <div class="footer-links mt-3">
+                        <a href="suscripcion.html" class="d-block text-light">Suscríbete a nuestras ofertas</a>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
+            <p class="text-center mb-0">&copy; 2025 Frío Natural. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="api.js"></script>
+    <script>
+        let cart = [];
+        let discount = 0;
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCart();
+            updateCartSummary();
+            updateCartBadge();
+            checkAuthStatus();
+        });
+
+        function loadCart() {
+            cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartContent = document.getElementById('cartContent');
+            cartContent.innerHTML = '';
+
+            if (cart.length === 0) {
+                cartContent.innerHTML = `
+                    <div class="empty-cart">
+                        <div class="empty-cart-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <h3 class="text-muted mb-3">Tu carrito está vacío</h3>
+                        <p class="text-muted mb-4">Agrega algunos productos deliciosos de nuestro catálogo</p>
+                        <a href="catalogo.html" class="btn btn-primary btn-lg">
+                            <i class="fas fa-ice-cream me-2"></i>Ir al Catálogo
+                        </a>
+                    </div>
+                `;
+                return;
+            }
+
+            cart.forEach((item, index) => {
+                const subtotal = item.price * item.quantity;
+                // Intentar obtener imagen del producto
+                const productImage = item.image || 'HELADOS/helado-default.png';
+                
+                const cartItem = `
+                    <div class="cart-item p-3">
+                        <div class="row align-items-center">
+                            <div class="col-md-2 mb-3 mb-md-0 text-center">
+                                <img src="${productImage}" alt="${item.name}" class="cart-item-image">
+                            </div>
+                            <div class="col-md-4 mb-3 mb-md-0">
+                                <h5 class="mb-1">${item.name}</h5>
+                                <p class="text-muted mb-0 small">${item.description || 'Delicioso helado artesanal'}</p>
+                            </div>
+                            <div class="col-md-2 mb-3 mb-md-0 text-center">
+                                <span class="fw-bold text-primary">$${item.price.toLocaleString()}</span>
+                            </div>
+                            <div class="col-md-2 mb-3 mb-md-0">
+                                <div class="quantity-control">
+                                    <button class="btn btn-sm btn-outline-secondary quantity-btn" onclick="updateQuantity(${index}, -1)">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <span class="quantity-display">${item.quantity}</span>
+                                    <button class="btn btn-sm btn-outline-secondary quantity-btn" onclick="updateQuantity(${index}, 1)">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-md-2 text-center">
+                                <span class="fw-bold d-block mb-2">$${subtotal.toLocaleString()}</span>
+                                <button class="btn btn-sm btn-outline-danger" onclick="removeFromCart(${index})">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                cartContent.innerHTML += cartItem;
+            });
+        }
+
+        function updateQuantity(index, change) {
+            cart[index].quantity += change;
+            
+            if (cart[index].quantity <= 0) {
+                removeFromCart(index);
+            } else {
+                saveCart();
+                loadCart();
+                updateCartSummary();
+                updateCartBadge();
+            }
+        }
+
+        function removeFromCart(index) {
+            if (confirm('¿Estás seguro de que quieres eliminar este producto?')) {
+                cart.splice(index, 1);
+                saveCart();
+                loadCart();
+                updateCartSummary();
+                updateCartBadge();
+                showNotification('Producto eliminado del carrito');
+            }
+        }
+
+        function clearCart() {
+            if (cart.length === 0) {
+                showNotification('El carrito ya está vacío', 'warning');
+                return;
+            }
+            
+            if (confirm('¿Estás seguro de que quieres vaciar todo el carrito?')) {
+                cart = [];
+                discount = 0;
+                saveCart();
+                loadCart();
+                updateCartSummary();
+                updateCartBadge();
+                document.getElementById('couponSuccess').classList.add('d-none');
+                document.getElementById('couponError').classList.add('d-none');
+                showNotification('Carrito vaciado correctamente');
+            }
+        }
+
+        function applyCoupon() {
+            const couponCode = document.getElementById('couponCode').value.toUpperCase();
+            const validCoupons = ['VERANO20', 'BIENVENIDO20'];
+            
+            if (validCoupons.includes(couponCode)) {
+                discount = 0.20; // 20% de descuento
+                document.getElementById('couponSuccess').classList.remove('d-none');
+                document.getElementById('couponError').classList.add('d-none');
+                updateCartSummary();
+                showNotification('¡Cupón aplicado correctamente!');
+            } else {
+                discount = 0;
+                document.getElementById('couponSuccess').classList.add('d-none');
+                document.getElementById('couponError').classList.remove('d-none');
+                updateCartSummary();
+            }
+        }
+
+        function updateCartSummary() {
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const discountAmount = subtotal * discount;
+            const total = subtotal - discountAmount;
+            
+            document.getElementById('subtotal').textContent = subtotal.toLocaleString();
+            document.getElementById('discount').textContent = discountAmount.toLocaleString();
+            document.getElementById('total').textContent = total.toLocaleString();
+        }
+
+        function saveCart() {
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+
+        function updateCartBadge() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartBadge').textContent = totalItems;
+        }
+
+        function checkAuthStatus() {
+            const currentUser = getCurrentUserData();
+            const authSection = document.getElementById('authSection');
+            const userSection = document.getElementById('userSection');
+            const userAvatarBtn = document.getElementById('userAvatarBtn');
+            const userDropdownMenu = document.getElementById('userDropdownMenu');
+            const adminDropdownLink = document.getElementById('adminDropdownLink');
+            const dropdownUserName = document.getElementById('dropdownUserName');
+            const dropdownUserEmail = document.getElementById('dropdownUserEmail');
+            
+            if (currentUser) {
+                authSection.classList.add('d-none');
+                userSection.classList.remove('d-none');
+                
+                // Actualizar información del dropdown
+                dropdownUserName.textContent = currentUser.full_name || currentUser.username;
+                dropdownUserEmail.textContent = currentUser.email;
+                
+                // Mostrar link de admin solo si es administrador
+                if (currentUser.role === 'admin') {
+                    adminDropdownLink.classList.remove('d-none');
+                }
+                
+                // Toggle del dropdown
+                userAvatarBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    userDropdownMenu.classList.toggle('show');
+                });
+                
+                // Cerrar dropdown al hacer clic fuera
+                document.addEventListener('click', function(e) {
+                    if (!e.target.closest('.user-menu')) {
+                        userDropdownMenu.classList.remove('show');
+                    }
+                });
+                
+                document.getElementById('logoutBtn').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    logout();
+                });
+            }
+        }
+
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = 'custom-notification';
+            
+            let icon = 'fa-check-circle';
+            if (type === 'warning') {
+                notification.style.backgroundColor = '#FFD166';
+                icon = 'fa-exclamation-circle';
+            } else if (type === 'error') {
+                notification.style.backgroundColor = '#FF6B6B';
+                icon = 'fa-times-circle';
+            }
+            
+            notification.innerHTML = `
+                <i class="fas ${icon}"></i>
+                <span>${message}</span>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        function proceedToCheckout() {
+            if (cart.length === 0) {
+                showNotification('Tu carrito está vacío', 'warning');
+                return;
+            }
+            
+            // Verificar si el usuario está logueado
+            const currentUser = localStorage.getItem('currentUser');
+            if (!currentUser) {
+                showNotification('Por favor, inicia sesión para proceder al pago', 'warning');
+                setTimeout(() => {
+                    window.location.href = 'inicio_sesion.html';
+                }, 1500);
+                return;
+            }
+            
+            // Redirigir a la página de pago
+            window.location.href = 'pago_local.html';
+        }
+    </script>
+</body>
+</html>

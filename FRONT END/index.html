@@ -128,6 +128,116 @@
             from { opacity: 0; transform: translateX(50px); }
             to { opacity: 1; transform: translateX(0); }
         }
+
+        .user-menu {
+            position: relative;
+            display: inline-block;
+        }
+
+        .user-avatar-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            color: white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .user-avatar-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        .user-dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            min-width: 280px;
+            margin-top: 10px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .user-dropdown-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .user-dropdown-header {
+            padding: 20px;
+            background: linear-gradient(135deg, #4A90E2, #6B48FF);
+            color: white;
+            border-radius: 12px 12px 0 0;
+            text-align: center;
+        }
+
+        .user-dropdown-header h6 {
+            margin: 0;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .user-dropdown-header small {
+            opacity: 0.8;
+            display: block;
+            font-size: 0.85rem;
+            margin-top: 5px;
+        }
+
+        .user-dropdown-menu hr {
+            margin: 0;
+        }
+
+        .user-dropdown-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            color: #2c3e50;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .user-dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .user-dropdown-item:hover {
+            background-color: #f8f9fa;
+            padding-left: 25px;
+        }
+
+        .user-dropdown-item i {
+            width: 20px;
+            margin-right: 12px;
+            color: #4A90E2;
+        }
+
+        .user-dropdown-item.logout {
+            color: #FF6B6B;
+            border-radius: 0 0 12px 12px;
+        }
+
+        .user-dropdown-item.logout:hover {
+            background-color: #fff5f5;
+        }
+
+        .user-dropdown-item.logout i {
+            color: #FF6B6B;
+        }
         
         .hero-carousel {
             height: 600px;
@@ -223,6 +333,7 @@
         
         .promo-bg-pareja {
             background: linear-gradient(135deg, #4A90E2, #6B48FF);
+            border-radius: 0 0 15px 15px;
         }
         
         .promo-bg-individual {
@@ -247,6 +358,326 @@
             color: #FF6B6B;
         }
         
+        /* ===== ESTILOS UNIFICADOS DE BOTONES (iguales al catálogo) ===== */
+        
+        /* Botón Primario */
+        .btn-primary {
+            background: linear-gradient(135deg, #4A90E2, #6B48FF);
+            border: none;
+            border-radius: 30px;
+            padding: 12px 30px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
+        }
+        
+        /* Botón Outline Primary */
+        .btn-outline-primary {
+            border: 2px solid #4A90E2;
+            color: #4A90E2;
+            border-radius: 30px;
+            padding: 10px 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline-primary:hover {
+            background: #4A90E2;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        /* Botón Outline Secondary */
+        .btn-outline-secondary {
+            border: 2px solid #6c757d;
+            color: #6c757d;
+            border-radius: 30px;
+            padding: 10px 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline-secondary:hover {
+            background: #6c757d;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        /* Botón Success */
+        .btn-success {
+            background: linear-gradient(135deg, #06D6A0, #0CBAA6);
+            border: none;
+            border-radius: 30px;
+            padding: 12px 30px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(6, 214, 160, 0.3);
+        }
+        
+        /* Botón Warning */
+        .btn-warning {
+            background: linear-gradient(135deg, #FFD166, #FF9E6D);
+            border: none;
+            border-radius: 30px;
+            padding: 12px 30px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-warning:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 209, 102, 0.3);
+        }
+        
+        /* Botón Light */
+        .btn-light {
+            background: white;
+            border: 2px solid white;
+            color: #4A90E2;
+            border-radius: 30px;
+            padding: 12px 30px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-light:hover {
+            background: #f8f9fa;
+            border-color: #f8f9fa;
+            color: #4A90E2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+        }
+        
+        /* ===== BOTONES MEJORADOS PARA PROMOCIONES ===== */
+        
+        /* Botón para Combo Familiar - Mejor contraste */
+        .btn-promo-familiar {
+            background: linear-gradient(135deg, #E8590C, #FF922B);
+            border: none;
+            border-radius: 30px;
+            padding: 12px 30px;
+            font-weight: bold;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-promo-familiar:hover {
+            background: linear-gradient(135deg, #D9480F, #F76707);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(232, 89, 12, 0.4);
+        }
+        
+        /* Botón para Combo Pareja - Mejor contraste */
+        .btn-promo-pareja {
+            background: linear-gradient(135deg, #1E40AF, #4F46E5);
+            border: none;
+            border-radius: 30px;
+            padding: 12px 30px;
+            font-weight: bold;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-promo-pareja:hover {
+            background: linear-gradient(135deg, #1E3A8A, #4338CA);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(30, 64, 175, 0.4);
+        }
+        
+        /* Botón para Combo Individual - Mejor contraste */
+        .btn-promo-individual {
+            background: linear-gradient(135deg, #059669, #10B981);
+            border: none;
+            border-radius: 30px;
+            padding: 12px 30px;
+            font-weight: bold;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-promo-individual:hover {
+            background: linear-gradient(135deg, #047857, #0D9488);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(5, 150, 105, 0.4);
+        }
+        
+        /* ===== ESTILOS PARA EL MODAL DE PERSONALIZACIÓN ===== */
+        
+        .customization-option {
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 18px 15px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .customization-option:hover {
+            border-color: #4A90E2;
+            background-color: #f8f9ff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(74, 144, 226, 0.15);
+        }
+        
+        .customization-option.selected {
+            border-color: #4A90E2;
+            background: linear-gradient(135deg, #e8f0fe, #f0f7ff);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(74, 144, 226, 0.2);
+        }
+        
+        .option-content {
+            flex: 1;
+        }
+        
+        .option-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #2c3e50;
+            font-size: 1rem;
+        }
+        
+        .option-subtitle {
+            color: #6c757d;
+            font-size: 0.85rem;
+            margin-bottom: 0;
+        }
+        
+        .option-price {
+            color: #4A90E2;
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-align: right;
+            min-width: 80px;
+        }
+        
+        .option-price.free {
+            color: #28a745;
+        }
+        
+        .topping-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid #f1f1f1;
+            transition: all 0.2s ease;
+        }
+        
+        .topping-item:hover {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 14px 12px;
+            margin: 0 -12px;
+        }
+        
+        .topping-item:last-child {
+            border-bottom: none;
+        }
+        
+        .topping-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .topping-name {
+            font-weight: 500;
+            color: #495057;
+        }
+        
+        .total-price-section {
+            background: linear-gradient(135deg, #f8f9ff, #e8f0fe);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 2px solid #e9ecef;
+        }
+        
+        .total-price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #4A90E2;
+        }
+        
+        .section-title-modal {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #e9ecef;
+        }
+        
+        .product-info-modal {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .modal-content {
+            border-radius: 18px;
+            border: none;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .modal-header {
+            border-bottom: 1px solid #e9ecef;
+            border-radius: 18px 18px 0 0;
+            padding: 25px 30px 20px;
+            background: linear-gradient(135deg, #4A90E2, #6B48FF);
+            color: white;
+        }
+        
+        .modal-header .btn-close {
+            filter: invert(1);
+        }
+        
+        .modal-body {
+            padding: 30px;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        
+        .modal-footer {
+            border-top: 1px solid #e9ecef;
+            border-radius: 0 0 18px 18px;
+            padding: 20px 30px;
+        }
+        
+        .customization-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .form-check-input:checked {
+            background-color: #4A90E2;
+            border-color: #4A90E2;
+        }
+        
+        .form-check-input:focus {
+            border-color: #4A90E2;
+            box-shadow: 0 0 0 0.2rem rgba(74, 144, 226, 0.25);
+        }
+        
         @media (max-width: 768px) {
             .hero-carousel, .hero-carousel .carousel-item {
                 height: 500px;
@@ -263,6 +694,16 @@
             .navbar-brand {
                 margin-right: 1rem;
                 font-size: 1.5rem;
+            }
+            
+            .customization-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .btn-primary, .btn-success, .btn-warning, .btn-light,
+            .btn-promo-familiar, .btn-promo-pareja, .btn-promo-individual {
+                padding: 10px 20px;
+                font-size: 0.9rem;
             }
         }
         
@@ -281,6 +722,12 @@
             
             .navbar-brand {
                 font-size: 1.3rem;
+            }
+            
+            .btn-primary, .btn-success, .btn-warning, .btn-light,
+            .btn-promo-familiar, .btn-promo-pareja, .btn-promo-individual {
+                padding: 8px 16px;
+                font-size: 0.85rem;
             }
         }
     </style>
@@ -301,31 +748,52 @@
                         <a class="nav-link active" href="index.html">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="b04_catalogo.html">Catálogo</a>
+                        <a class="nav-link" href="catalogo.html">Catálogo</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="b06_disponibilidad.html">Disponibilidad</a>
+                        <a class="nav-link" href="disponibilidad.html">Disponibilidad</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="b07_promociones.html">Promociones</a>
+                        <a class="nav-link" href="promociones.html">Promociones</a>
                     </li>
                 </ul>
                 
                 <div class="d-flex align-items-center">
                     <div class="position-relative me-3">
-                        <a href="b12_editar_carrito.html" class="btn-cart position-relative">
+                        <a href="editar_carrito.html" class="btn-cart position-relative">
                             <i class="fas fa-shopping-cart"></i> Carrito
                             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning" id="cartBadge">0</span>
                         </a>
                     </div>
                     
                     <div id="authSection">
-                        <a href="b02_inicio_sesion.html" class="btn-login">Iniciar Sesión</a>
-                        <a href="b01_registro.html" class="btn-register">Registrarse</a>
+                        <a href="inicio_sesion.html" class="btn-login">Iniciar Sesión</a>
+                        <a href="registro.html" class="btn-register">Registrarse</a>
                     </div>
                     <div id="userSection" class="d-none">
-                        <span class="text-light me-2" id="userWelcome">Bienvenido, Usuario</span>
-                        <button class="btn-logout" id="logoutBtn">Cerrar Sesión</button>
+                        <div class="user-menu">
+                            <button class="user-avatar-btn" id="userAvatarBtn" title="Menú de usuario">
+                                <i class="fas fa-user"></i>
+                            </button>
+                            <div class="user-dropdown-menu" id="userDropdownMenu">
+                                <div class="user-dropdown-header">
+                                    <h6 id="dropdownUserName">Usuario</h6>
+                                    <small id="dropdownUserEmail">email@example.com</small>
+                                </div>
+                                <a href="perfil.html" class="user-dropdown-item">
+                                    <i class="fas fa-user"></i>
+                                    <span>Mi Perfil</span>
+                                </a>
+                                <a href="admin.html" id="adminDropdownLink" class="user-dropdown-item d-none">
+                                    <i class="fas fa-cog"></i>
+                                    <span>Panel Admin</span>
+                                </a>
+                                <a href="#" class="user-dropdown-item logout" id="logoutBtn">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    <span>Cerrar Sesión</span>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -345,7 +813,7 @@
                 <div class="carousel-caption">
                     <h1>Helados Artesanales Frío Natural</h1>
                     <p class="lead">Disfruta de nuestros helados naturales, preparados con ingredientes frescos y mucho amor en cada envase y cucurucho</p>
-                    <a href="b04_catalogo.html" class="btn btn-light btn-lg fw-bold px-4 py-2">Ver Catálogo</a>
+                    <a href="catalogo.html" class="btn btn-light btn-lg fw-bold px-4 py-2">Ver Catálogo</a>
                 </div>
             </div>
             <div class="carousel-item">
@@ -353,7 +821,7 @@
                 <div class="carousel-caption">
                     <h1>Nuevos Sabores Exclusivos</h1>
                     <p class="lead">Descubre nuestras creaciones únicas con ingredientes naturales de la más alta calidad</p>
-                    <a href="b04_catalogo.html" class="btn btn-light btn-lg fw-bold px-4 py-2">Descubrir Sabores</a>
+                    <a href="catalogo.html" class="btn btn-light btn-lg fw-bold px-4 py-2">Descubrir Sabores</a>
                 </div>
             </div>
             <div class="carousel-item">
@@ -361,7 +829,7 @@
                 <div class="carousel-caption">
                     <h1>Promociones Especiales</h1>
                     <p class="lead">Aprovecha nuestros combos familiares y ofertas exclusivas para disfrutar en compañía</p>
-                    <a href="b07_promociones.html" class="btn btn-light btn-lg fw-bold px-4 py-2">Ver Promociones</a>
+                    <a href="promociones.html" class="btn btn-light btn-lg fw-bold px-4 py-2">Ver Promociones</a>
                 </div>
             </div>
         </div>
@@ -387,7 +855,7 @@
                             <h5 class="card-title">Vainilla Premium</h5>
                             <p class="card-text text-muted">Extracto natural de vainilla de Madagascar</p>
                             <p class="h4 text-primary">$4.990</p>
-                            <button class="btn btn-outline-primary" onclick="addToCart(1, 'Vainilla Premium', 4990)">Agregar al Carrito</button>
+                            <button class="btn btn-outline-primary" onclick="openCustomizationModal(1)">Agregar al Carrito</button>
                         </div>
                     </div>
                 </div>
@@ -398,7 +866,7 @@
                             <h5 class="card-title">Chocolate Suizo</h5>
                             <p class="card-text text-muted">Intenso sabor con trozos de chocolate belga</p>
                             <p class="h4 text-primary">$5.990</p>
-                            <button class="btn btn-outline-primary" onclick="addToCart(2, 'Chocolate Suizo', 5990)">Agregar al Carrito</button>
+                            <button class="btn btn-outline-primary" onclick="openCustomizationModal(2)">Agregar al Carrito</button>
                         </div>
                     </div>
                 </div>
@@ -409,7 +877,7 @@
                             <h5 class="card-title">Frutilla Natural</h5>
                             <p class="card-text text-muted">Con trozos de frutilla fresca y jugo natural</p>
                             <p class="h4 text-primary">$5.490</p>
-                            <button class="btn btn-outline-primary" onclick="addToCart(3, 'Frutilla Natural', 5490)">Agregar al Carrito</button>
+                            <button class="btn btn-outline-primary" onclick="openCustomizationModal(3)">Agregar al Carrito</button>
                         </div>
                     </div>
                 </div>
@@ -420,13 +888,13 @@
                             <h5 class="card-title">Menta con Chocolate</h5>
                             <p class="card-text text-muted">Refrescante menta con chips de chocolate</p>
                             <p class="h4 text-primary">$5.490</p>
-                            <button class="btn btn-outline-primary" onclick="addToCart(4, 'Menta con Chocolate', 5490)">Agregar al Carrito</button>
+                            <button class="btn btn-outline-primary" onclick="openCustomizationModal(4)">Agregar al Carrito</button>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="text-center mt-4">
-                <a href="b04_catalogo.html" class="btn btn-primary btn-lg">Ver Todos los Sabores</a>
+                <a href="catalogo.html" class="btn btn-primary btn-lg">Ver Todos los Sabores</a>
             </div>
         </div>
     </section>
@@ -449,7 +917,7 @@
                                 <span class="h4 text-white fw-bold">$18.990</span>
                             </div>
                             <span class="badge bg-white text-warning fs-6 mb-3">-24%</span>
-                            <button class="btn btn-warning fw-bold" onclick="addToCart('combo-familiar', 'Combo Familiar', 18990)">Agregar al Carrito</button>
+                            <button class="btn btn-promo-familiar fw-bold" onclick="addToCart('combo-familiar', 'Combo Familiar', 18990)">Agregar al Carrito</button>
                         </div>
                     </div>
                 </div>
@@ -466,7 +934,7 @@
                                 <span class="h4 text-white fw-bold">$9.990</span>
                             </div>
                             <span class="badge bg-white text-primary fs-6 mb-3">-23%</span>
-                            <button class="btn btn-primary fw-bold" onclick="addToCart('combo-pareja', 'Combo Pareja', 9990)">Agregar al Carrito</button>
+                            <button class="btn btn-promo-pareja fw-bold" onclick="addToCart('combo-pareja', 'Combo Pareja', 9990)">Agregar al Carrito</button>
                         </div>
                     </div>
                 </div>
@@ -483,13 +951,13 @@
                                 <span class="h4 text-white fw-bold">$5.990</span>
                             </div>
                             <span class="badge bg-white text-success fs-6 mb-3">-20%</span>
-                            <button class="btn btn-success fw-bold" onclick="addToCart('combo-individual', 'Combo Individual', 5990)">Agregar al Carrito</button>
+                            <button class="btn btn-promo-individual fw-bold" onclick="addToCart('combo-individual', 'Combo Individual', 5990)">Agregar al Carrito</button>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="text-center mt-4">
-                <a href="b07_promociones.html" class="btn btn-outline-primary">Ver Todas las Promociones</a>
+                <a href="promociones.html" class="btn btn-outline-primary">Ver Todas las Promociones</a>
             </div>
         </div>
     </section>
@@ -536,7 +1004,8 @@
                     <p>Lunes a Viernes: 10:00 - 20:00</p>
                     <p>Sábados y Domingos: 11:00 - 22:00</p>
                     <div class="footer-links mt-3">
-                        <a href="b09_suscripcion.html" class="d-block">Suscríbete a nuestras ofertas</a>
+                        <a href="suscripcion.html" class="d-block text-light">Suscríbete a nuestras ofertas</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -545,8 +1014,344 @@
         </div>
     </footer>
 
+    <!-- Modal de Personalización -->
+    <div class="modal fade" id="customizationModal" tabindex="-1" aria-labelledby="customizationModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="customizationModalLabel">
+                        <i class="fas fa-ice-cream me-2"></i>Personaliza tu helado
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Información del producto -->
+                    <div class="product-info-modal">
+                        <div class="row align-items-center">
+                            <div class="col-md-3 text-center">
+                                <img src="" id="modalProductImage" alt="Helado" class="img-fluid rounded" style="max-height: 100px; width: auto;">
+                            </div>
+                            <div class="col-md-9">
+                                <h4 id="modalProductName" class="mb-1 text-dark"></h4>
+                                <p id="modalProductDescription" class="text-muted mb-2"></p>
+                                <div class="d-flex align-items-center">
+                                    <span class="h5 text-primary mb-0">Precio base: $<span id="modalBasePriceDisplay">0</span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-12">
+                            <!-- Selección de tamaño -->
+                            <div class="mb-4">
+                                <h6 class="section-title-modal">
+                                    <i class="fas fa-weight me-2"></i>Tamaño
+                                </h6>
+                                <div id="sizeOptions" class="customization-grid">
+                                    <!-- Las opciones de tamaño se cargarán dinámicamente -->
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <!-- Selección de salsas -->
+                                    <div class="mb-4">
+                                        <h6 class="section-title-modal">
+                                            <i class="fas fa-fill-drip me-2"></i>Salsas
+                                        </h6>
+                                        <div id="sauceOptions">
+                                            <!-- Las opciones de salsas se cargarán dinámicamente -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <!-- Selección de toppings -->
+                                    <div class="mb-4">
+                                        <h6 class="section-title-modal">
+                                            <i class="fas fa-star me-2"></i>Toppings
+                                        </h6>
+                                        <div id="toppingOptions">
+                                            <!-- Las opciones de toppings se cargarán dinámicamente -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Resumen del pedido -->
+                    <div class="total-price-section">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="mb-1">Total a pagar:</h6>
+                                <small class="text-muted">Incluye personalizaciones seleccionadas</small>
+                            </div>
+                            <div class="text-end">
+                                <span class="total-price">$<span id="modalTotalPrice">0</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times me-2"></i>Cancelar
+                    </button>
+                    <button type="button" class="btn btn-primary" id="addToCartFinal">
+                        <i class="fas fa-cart-plus me-2"></i>Agregar al Carrito
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="api.js"></script>
     <script>
+        // Datos de productos destacados
+        const products = [
+            { id: 1, name: "Vainilla Premium", category: "cremoso", price: 4990, flavor: "vainilla", image: "HELADOS/vainilla-premium.png", popular: false, description: "Extracto natural de vainilla de Madagascar con un sabor suave y cremoso." },
+            { id: 2, name: "Chocolate Suizo", category: "chocolate", price: 5990, flavor: "chocolate", image: "HELADOS/chocolate-suizo.png", popular: true, description: "Chocolate belga intenso con trozos de chocolate y un toque de avellanas." },
+            { id: 3, name: "Frutilla Natural", category: "frutal", price: 5490, flavor: "frutilla", image: "HELADOS/frutilla-natural.png", popular: true, description: "Frutillas frescas en un helado cremoso y refrescante con jugo natural." },
+            { id: 4, name: "Menta con Chocolate", category: "chocolate", price: 5490, flavor: "menta", image: "HELADOS/menta-chocolate.png", popular: false, description: "Refrescante sabor a menta con chips de chocolate belga." }
+        ];
+
+        // Opciones de personalización
+        const sizeOptions = [
+            { id: 1, name: "Porción Individual", subtitle: "1 bola perfecta", price: 0 },
+            { id: 2, name: "Porción Doble", subtitle: "2 bolas deliciosas", price: 1500 },
+            { id: 3, name: "Porción Familiar", subtitle: "3 bolas para compartir", price: 2500 },
+            { id: 4, name: "Medio Kilo", subtitle: "½ kg de puro placer", price: 8900 },
+            { id: 5, name: "Un Kilo", subtitle: "1 kg de felicidad", price: 15900 },
+            { id: 6, name: "Dos Kilos", subtitle: "2 kg para festejar", price: 28900 }
+        ];
+
+        const sauceOptions = [
+            { id: 1, name: "Chocolate", price: 800 },
+            { id: 2, name: "Caramelo", price: 800 },
+            { id: 3, name: "Frutilla", price: 800 },
+            { id: 4, name: "Dulce de Leche", price: 800 },
+            { id: 5, name: "Chocolate Blanco", price: 900 },
+            { id: 6, name: "Frambuesa", price: 800 }
+        ];
+
+        const toppingOptions = [
+            { id: 1, name: "Granas de Chocolate", price: 500 },
+            { id: 2, name: "Nueces Crocantes", price: 700 },
+            { id: 3, name: "Frutillas Frescas", price: 900 },
+            { id: 4, name: "Coco Rallado", price: 400 },
+            { id: 5, name: "Chispas de Colores", price: 300 },
+            { id: 6, name: "Crema Chantilly", price: 600 },
+            { id: 7, name: "Galletas Trituradas", price: 550 },
+            { id: 8, name: "Sirope de Arce", price: 750 }
+        ];
+
+        let currentProduct = null;
+        let selectedSize = null;
+        let selectedSauces = [];
+        let selectedToppings = [];
+
+        // Funciones para el modal de personalización
+        function openCustomizationModal(productId) {
+            // Reiniciar selecciones
+            selectedSize = null;
+            selectedSauces = [];
+            selectedToppings = [];
+            
+            // Encontrar el producto
+            currentProduct = products.find(p => p.id === productId);
+            
+            if (!currentProduct) return;
+            
+            // Actualizar información del producto en el modal
+            document.getElementById('modalProductName').textContent = currentProduct.name;
+            document.getElementById('modalProductDescription').textContent = currentProduct.description;
+            document.getElementById('modalProductImage').src = currentProduct.image;
+            document.getElementById('modalBasePriceDisplay').textContent = currentProduct.price.toLocaleString();
+            
+            // Cargar opciones de tamaño
+            const sizeContainer = document.getElementById('sizeOptions');
+            sizeContainer.innerHTML = '';
+            sizeOptions.forEach(size => {
+                const priceDisplay = size.price > 0 ? `+$${size.price.toLocaleString()}` : 'Incluido';
+                const priceClass = size.price > 0 ? '' : 'free';
+                
+                const sizeElement = `
+                    <div class="customization-option" onclick="selectSize(${size.id})">
+                        <div class="option-content">
+                            <div class="option-title">${size.name}</div>
+                            <div class="option-subtitle">${size.subtitle}</div>
+                        </div>
+                        <div class="option-price ${priceClass}">${priceDisplay}</div>
+                    </div>
+                `;
+                sizeContainer.innerHTML += sizeElement;
+            });
+            
+            // Cargar opciones de salsas
+            const sauceContainer = document.getElementById('sauceOptions');
+            sauceContainer.innerHTML = '';
+            sauceOptions.forEach(sauce => {
+                const sauceElement = `
+                    <div class="topping-item">
+                        <div class="topping-info">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="sauce-${sauce.id}" onchange="toggleSauce(${sauce.id}, this.checked)">
+                                <label class="form-check-label topping-name" for="sauce-${sauce.id}">
+                                    ${sauce.name}
+                                </label>
+                            </div>
+                        </div>
+                        <span class="option-price">+$${sauce.price.toLocaleString()}</span>
+                    </div>
+                `;
+                sauceContainer.innerHTML += sauceElement;
+            });
+            
+            // Cargar opciones de toppings
+            const toppingContainer = document.getElementById('toppingOptions');
+            toppingContainer.innerHTML = '';
+            toppingOptions.forEach(topping => {
+                const toppingElement = `
+                    <div class="topping-item">
+                        <div class="topping-info">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="topping-${topping.id}" onchange="toggleTopping(${topping.id}, this.checked)">
+                                <label class="form-check-label topping-name" for="topping-${topping.id}">
+                                    ${topping.name}
+                                </label>
+                            </div>
+                        </div>
+                        <span class="option-price">+$${topping.price.toLocaleString()}</span>
+                    </div>
+                `;
+                toppingContainer.innerHTML += toppingElement;
+            });
+            
+            // Actualizar precio total
+            updateTotalPrice();
+            
+            // Mostrar modal
+            const modal = new bootstrap.Modal(document.getElementById('customizationModal'));
+            modal.show();
+        }
+
+        function selectSize(sizeId) {
+            selectedSize = sizeOptions.find(s => s.id === sizeId);
+            
+            // Actualizar UI
+            document.querySelectorAll('#sizeOptions .customization-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            event.target.closest('.customization-option').classList.add('selected');
+            
+            updateTotalPrice();
+        }
+
+        function toggleSauce(sauceId, isChecked) {
+            const sauce = sauceOptions.find(s => s.id === sauceId);
+            
+            if (isChecked) {
+                selectedSauces.push(sauce);
+            } else {
+                selectedSauces = selectedSauces.filter(s => s.id !== sauceId);
+            }
+            
+            updateTotalPrice();
+        }
+
+        function toggleTopping(toppingId, isChecked) {
+            const topping = toppingOptions.find(t => t.id === toppingId);
+            
+            if (isChecked) {
+                selectedToppings.push(topping);
+            } else {
+                selectedToppings = selectedToppings.filter(t => t.id !== toppingId);
+            }
+            
+            updateTotalPrice();
+        }
+
+        function updateTotalPrice() {
+            let total = currentProduct ? currentProduct.price : 0;
+            
+            if (selectedSize) {
+                total += selectedSize.price;
+            }
+            
+            selectedSauces.forEach(sauce => {
+                total += sauce.price;
+            });
+            
+            selectedToppings.forEach(topping => {
+                total += topping.price;
+            });
+            
+            document.getElementById('modalTotalPrice').textContent = total.toLocaleString();
+        }
+
+        function addCustomizedToCart() {
+            if (!currentProduct) return;
+            
+            if (!selectedSize) {
+                alert('Por favor selecciona un tamaño para tu helado.');
+                return;
+            }
+            
+            // Calcular precio total
+            let totalPrice = currentProduct.price;
+            totalPrice += selectedSize.price;
+            
+            selectedSauces.forEach(sauce => {
+                totalPrice += sauce.price;
+            });
+            
+            selectedToppings.forEach(topping => {
+                totalPrice += topping.price;
+            });
+            
+            // Crear descripción personalizada
+            let description = `${currentProduct.name} - ${selectedSize.name}`;
+            
+            if (selectedSauces.length > 0) {
+                description += ` con ${selectedSauces.map(s => s.name).join(', ')}`;
+            }
+            
+            if (selectedToppings.length > 0) {
+                description += ` y ${selectedToppings.map(t => t.name).join(', ')}`;
+            }
+            
+            // Agregar al carrito
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.push({
+                id: Date.now(), // ID único para este item personalizado
+                name: description,
+                price: totalPrice,
+                quantity: 1,
+                baseProduct: currentProduct.id,
+                size: selectedSize.id,
+                sauces: selectedSauces.map(s => s.id),
+                toppings: selectedToppings.map(t => t.id)
+            });
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartBadge();
+            
+            // Cerrar modal y mostrar notificación
+            const modal = bootstrap.Modal.getInstance(document.getElementById('customizationModal'));
+            modal.hide();
+            
+            showNotification(`¡${description} agregado al carrito!`);
+        }
+
+        // Configurar evento para el botón de agregar al carrito del modal
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('addToCartFinal').addEventListener('click', function() {
+                addCustomizedToCart();
+            });
+        });
+
+        // Funciones originales del index
         function addToCart(id, name, price) {
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
             const existingItem = cart.find(item => item.id === id);
@@ -570,19 +1375,44 @@
         }
 
         function checkAuthStatus() {
-            const currentUser = localStorage.getItem('currentUser');
+            const currentUser = getCurrentUserData();
             const authSection = document.getElementById('authSection');
             const userSection = document.getElementById('userSection');
-            const userWelcome = document.getElementById('userWelcome');
+            const userAvatarBtn = document.getElementById('userAvatarBtn');
+            const userDropdownMenu = document.getElementById('userDropdownMenu');
+            const adminDropdownLink = document.getElementById('adminDropdownLink');
+            const dropdownUserName = document.getElementById('dropdownUserName');
+            const dropdownUserEmail = document.getElementById('dropdownUserEmail');
             
             if (currentUser) {
                 authSection.classList.add('d-none');
                 userSection.classList.remove('d-none');
-                userWelcome.textContent = `Bienvenido, ${currentUser}`;
                 
-                document.getElementById('logoutBtn').addEventListener('click', function() {
-                    localStorage.removeItem('currentUser');
-                    window.location.reload();
+                // Actualizar información del dropdown
+                dropdownUserName.textContent = currentUser.full_name || currentUser.username;
+                dropdownUserEmail.textContent = currentUser.email;
+                
+                // Mostrar link de admin solo si es administrador
+                if (currentUser.role === 'admin') {
+                    adminDropdownLink.classList.remove('d-none');
+                }
+                
+                // Toggle del dropdown
+                userAvatarBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    userDropdownMenu.classList.toggle('show');
+                });
+                
+                // Cerrar dropdown al hacer clic fuera
+                document.addEventListener('click', function(e) {
+                    if (!e.target.closest('.user-menu')) {
+                        userDropdownMenu.classList.remove('show');
+                    }
+                });
+                
+                document.getElementById('logoutBtn').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    logout();
                 });
             }
         }
